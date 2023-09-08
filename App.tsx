@@ -1,10 +1,10 @@
 import { NavigationContainer } from "@react-navigation/native";
-import Tab from "./src/navigations/tab/Tab";
+import Screen from "./src/navigations/screen/Screen";
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab />
+      <Screen />
     </NavigationContainer>
   );
 }

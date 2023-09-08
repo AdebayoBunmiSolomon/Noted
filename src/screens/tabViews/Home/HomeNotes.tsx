@@ -1,11 +1,14 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, SafeAreaView } from "react-native";
+import { style } from "./Styles";
 
 const HomeNotes = () => {
   return (
-    <View>
-      <Text>This is home note</Text>
-    </View>
+    <SafeAreaView style={style.container}>
+      <View>
+        <Text>This is home note</Text>
+      </View>
+    </SafeAreaView>
   );
 };
 

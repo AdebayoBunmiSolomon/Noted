@@ -12,6 +12,7 @@ const Tabs = createBottomTabNavigator();
 const Tab = () => {
   return (
     <Tabs.Navigator
+      initialRouteName='Home Page'
       screenOptions={({ route }: any) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName: any;
@@ -29,14 +30,39 @@ const Tab = () => {
           }
           return <Icon name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: "purple",
+        tabBarActiveTintColor: "white",
         tabBarInactiveTintColor: "gray",
+        tabBarActiveBackgroundColor: "purple",
       })}>
-      <Tabs.Screen name='Religion' component={ReligionNotes} />
-      <Tabs.Screen name='Home' component={HomeNotes} />
-      <Tabs.Screen name='Home Page' component={HomePage} />
-      <Tabs.Screen name='Work' component={WorkNotes} />
-      <Tabs.Screen name='Settings' component={Settings} />
+      <Tabs.Screen
+        name='Religion'
+        component={ReligionNotes}
+        options={{ headerShown: false }}
+      />
+      <Tabs.Screen
+        name='Home'
+        component={HomeNotes}
+        options={{ headerShown: false }}
+      />
+      <Tabs.Screen
+        name='Home Page'
+        component={HomePage}
+        options={{ headerShown: false }}
+      />
+      <Tabs.Screen
+        name='Work'
+        component={WorkNotes}
+        options={{ headerShown: false }}
+      />
+      <Tabs.Screen
+        name='Settings'
+        component={Settings}
+        options={{
+          tabBarBadge: 3,
+          tabBarBadgeStyle: { backgroundColor: "orange" },
+          headerShown: false,
+        }}
+      />
     </Tabs.Navigator>
   );
 };

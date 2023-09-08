@@ -1,11 +1,14 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, SafeAreaView } from "react-native";
+import { style } from "./Styles";
 
 const Settings = () => {
   return (
-    <View>
-      <Text>Welcome to Settings view</Text>
-    </View>
+    <SafeAreaView style={style.container}>
+      <View>
+        <Text>Welcome to Settings view</Text>
+      </View>
+    </SafeAreaView>
   );
 };
 
