@@ -8,12 +8,13 @@ import {
   ImageBackground,
   Dimensions,
 } from "react-native";
-import { carouselStyle } from "./ComponentStyle";
+import { carouselStyle } from "./style/ComponentStyle";
 import { StackActions } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 
 const Carousel = ({ navigation }: any) => {
   const screenWidth = Dimensions.get("window").width;
+  const screenHeight = Dimensions.get("window").height;
   const [activeIndex, setActiveIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
   const [text, setText] = useState("");
@@ -77,7 +78,7 @@ const Carousel = ({ navigation }: any) => {
   }
 
   const clickMe = () => {
-    navigation.dispatch(StackActions.replace("Tab", {}));
+    navigation.dispatch(StackActions.replace("Login", {}));
   };
 
   const renderItem = ({ item, index }: any) => {
@@ -87,7 +88,7 @@ const Carousel = ({ navigation }: any) => {
           blurRadius={1}
           source={item.image}
           style={{
-            height: 400,
+            height: screenHeight / 1.7,
             width: screenWidth,
             justifyContent: "center",
             alignItems: "center",
@@ -109,11 +110,10 @@ const Carousel = ({ navigation }: any) => {
 
   const handleScroll = (event: any) => {
     const scrollPosition = event.nativeEvent.contentOffset.x;
-    //console.log(scrollPosition);
 
     const index = scrollPosition / screenWidth;
-    //console.log(index);
     setActiveIndex(index);
+    changeText(activeIndex)
   };
 
   const renderDotIndicators = () => {
@@ -145,7 +145,7 @@ const Carousel = ({ navigation }: any) => {
   };
 
   return (
-    <SafeAreaView style={carouselStyle.container}>
+    <View style={carouselStyle.container}>
       <View style={carouselStyle.imageFlatListView}>
         <FlatList
           data={carouselData}
@@ -169,7 +169,7 @@ const Carousel = ({ navigation }: any) => {
           <Text style={carouselStyle.buttonText}>Continue</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

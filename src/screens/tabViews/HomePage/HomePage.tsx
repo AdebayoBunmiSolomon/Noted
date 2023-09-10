@@ -5,8 +5,6 @@ import { useFonts } from "expo-font";
 
 const HomePage = () => {
   const [loaded] = useFonts({
-    "Roboto-Black": require("../../../../assets/fonts/Roboto-Black.ttf"),
-    "Roboto-Regular": require("../../../../assets/fonts/Roboto-Regular.ttf"),
     "RobotoCondensed-Regular": require("../../../../assets/fonts/RobotoCondensed-Regular.ttf"),
   });
 

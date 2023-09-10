@@ -6,7 +6,6 @@ const screenWidth = Dimensions.get("window").width;
 export const carouselStyle = StyleSheet.create({
   //styling goes here
   container: {
-    marginTop: Platform.OS === "android" ? 50 : 0,
     display: "flex",
     alignItems: "center",
   },
@@ -23,7 +22,7 @@ export const carouselStyle = StyleSheet.create({
     display: "flex",
     justifyContent: "flex-end",
     alignItems: "center",
-    height: screenHeight / 2,
+    height: screenHeight / 2.05,
     width: screenWidth,
   },
   buttonText: {
@@ -35,7 +34,7 @@ export const carouselStyle = StyleSheet.create({
   imageFlatListView: {
     display: "flex",
     backgroundColor: "black",
-    height: screenHeight / 2,
+    height: screenHeight / 1.7,
     overflow: "hidden",
     width: screenWidth,
     borderBottomLeftRadius: 60,
