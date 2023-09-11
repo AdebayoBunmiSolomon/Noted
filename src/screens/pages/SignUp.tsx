@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { signUpStyle } from "./style/PagesStyle";
 import Icon from "react-native-vector-icons/Ionicons";
+import PinIcon from "react-native-vector-icons/Entypo";
 import PasswordIcon from "react-native-vector-icons/FontAwesome5";
 
 const SignUp = () => {
@@ -21,19 +22,19 @@ const SignUp = () => {
         <View>
           <TouchableOpacity style={signUpStyle.bckArrowBtn}>
             <Text>
-              <Icon name="arrow-back" size={30} color={"purple"} />
+              <Icon name='arrow-back' size={30} color={"purple"} />
             </Text>
           </TouchableOpacity>
         </View>
 
         <View style={signUpStyle.headerTextView}>
-          <Text style={signUpStyle.headerText}>Sign Up</Text>
+          <Text style={signUpStyle.headerText}>Sign up</Text>
         </View>
       </View>
 
       <View style={signUpStyle.formView}>
         <View>
-          <PasswordIcon name="user-lock" size={60} color={"purple"} />
+          <PasswordIcon name='user-lock' size={60} color={"purple"} />
         </View>
 
         <View style={signUpStyle.formTextInputView}>
@@ -60,6 +61,7 @@ const SignUp = () => {
               returnKeyType={"next"}
               onSubmitEditing={() => ref_input3.current?.focus()}
               ref={ref_input2}
+              blurOnSubmit={false}
             />
           </View>
           <View>
@@ -72,6 +74,7 @@ const SignUp = () => {
               returnKeyType={"next"}
               onSubmitEditing={() => ref_input4.current?.focus()}
               ref={ref_input3}
+              blurOnSubmit={false}
             />
           </View>
           <View>
@@ -81,7 +84,7 @@ const SignUp = () => {
               maxLength={1}
               selectTextOnFocus={false}
               secureTextEntry={true}
-              returnKeyType={"next"}
+              returnKeyType={"done"}
               onSubmitEditing={() => {
                 //do some actions here
               }}
@@ -92,7 +95,9 @@ const SignUp = () => {
 
         <View style={signUpStyle.registerBtnView}>
           <TouchableOpacity style={signUpStyle.registerBtn}>
-            <Text style={signUpStyle.registerBtnText}>Register</Text>
+            <Text style={signUpStyle.registerBtnText}>
+              Create pin <PinIcon name={"key"} size={18} color={"white"} />
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

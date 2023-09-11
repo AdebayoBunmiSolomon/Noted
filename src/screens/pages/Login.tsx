@@ -9,6 +9,7 @@ import { StackActions } from "@react-navigation/native";
 const Login = ({ navigation }: any) => {
   const [loaded] = useFonts({
     "RobotoCondensed-Regular": require("../../../assets/fonts/RobotoCondensed-Regular.ttf"),
+    "RobotoCondensed-Bold": require("../../../assets/fonts/RobotoCondensed-Bold.ttf"),
   });
 
   if (!loaded) {
@@ -16,7 +17,7 @@ const Login = ({ navigation }: any) => {
   }
 
   const loginOrSignUp = () => {
-    navigation.dispatch(StackActions.replace("SignUp", {}));
+    navigation.dispatch(StackActions.replace("PinAuth", {}));
   };
 
   return (
@@ -24,10 +25,9 @@ const Login = ({ navigation }: any) => {
       <View style={loginStyle.loginButtonView}>
         <TouchableOpacity
           style={loginStyle.loginButton}
-          onPress={loginOrSignUp}
-        >
+          onPress={loginOrSignUp}>
           <Text style={loginStyle.buttonText}>
-            Login / Sign up <Icon name="login" size={15} />
+            Login / Sign up <Icon name='login' size={15} />
           </Text>
         </TouchableOpacity>
       </View>
@@ -36,7 +36,7 @@ const Login = ({ navigation }: any) => {
         <TouchableOpacity style={loginStyle.biometricsButton}>
           <Text style={loginStyle.buttonText}>
             Continue with biometrics{" "}
-            <Icon2 name="finger-print-sharp" size={18} />
+            <Icon2 name='finger-print-sharp' size={18} />
           </Text>
         </TouchableOpacity>
       </View>

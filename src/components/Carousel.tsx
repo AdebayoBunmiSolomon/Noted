@@ -7,6 +7,7 @@ import {
   FlatList,
   ImageBackground,
   Dimensions,
+  Platform,
 } from "react-native";
 import { carouselStyle } from "./style/ComponentStyle";
 import { StackActions } from "@react-navigation/native";
@@ -71,6 +72,7 @@ const Carousel = ({ navigation }: any) => {
 
   const [loaded] = useFonts({
     "RobotoCondensed-Regular": require("../../assets/fonts/RobotoCondensed-Regular.ttf"),
+    "RobotoCondensed-Bold": require("../../assets/fonts/RobotoCondensed-Bold.ttf"),
   });
 
   if (!loaded) {
@@ -85,10 +87,10 @@ const Carousel = ({ navigation }: any) => {
     return (
       <View>
         <ImageBackground
-          blurRadius={1}
+          blurRadius={2}
           source={item.image}
           style={{
-            height: screenHeight / 1.7,
+            height: screenHeight / 1.5,
             width: screenWidth,
             justifyContent: "center",
             alignItems: "center",
@@ -96,8 +98,11 @@ const Carousel = ({ navigation }: any) => {
           <Text
             style={{
               color: "white",
-              fontFamily: "RobotoCondensed-Regular",
-              fontSize: 30,
+              fontFamily:
+                Platform.OS === "android"
+                  ? "RobotoCondensed-Regular"
+                  : "RobotoCondensed-Bold",
+              fontSize: Platform.OS === "android" ? 30 : 45,
               fontWeight: "bold",
             }}>
             {text}
@@ -113,7 +118,7 @@ const Carousel = ({ navigation }: any) => {
 
     const index = scrollPosition / screenWidth;
     setActiveIndex(index);
-    changeText(activeIndex)
+    changeText(activeIndex);
   };
 
   const renderDotIndicators = () => {

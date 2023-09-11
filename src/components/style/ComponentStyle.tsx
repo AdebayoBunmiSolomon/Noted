@@ -12,29 +12,33 @@ export const carouselStyle = StyleSheet.create({
   button: {
     backgroundColor: "purple",
     width: screenWidth - 30,
-    height: "15%",
+    height: "17%",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
-    marginBottom: screenHeight / 17,
+    marginBottom:
+      Platform.OS === "android" ? screenHeight / 15 : screenHeight / 9,
   },
   buttonView: {
     display: "flex",
     justifyContent: "flex-end",
     alignItems: "center",
-    height: screenHeight / 2.05,
+    height: screenHeight / 2.5,
     width: screenWidth,
   },
   buttonText: {
     color: "white",
-    fontSize: Platform.OS === "android" ? 17 : 25,
-    fontFamily: "RobotoCondensed-Regular",
+    fontSize: Platform.OS === "android" ? 17 : 23,
+    fontFamily:
+      Platform.OS === "android"
+        ? "RobotoCondensed-Regular"
+        : "RobotoCondensed-Bold",
     fontWeight: "bold",
   },
   imageFlatListView: {
     display: "flex",
     backgroundColor: "black",
-    height: screenHeight / 1.7,
+    height: screenHeight / 1.5,
     overflow: "hidden",
     width: screenWidth,
     borderBottomLeftRadius: 60,

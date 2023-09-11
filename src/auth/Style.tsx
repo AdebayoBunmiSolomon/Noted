@@ -1,56 +1,9 @@
-import React from "react";
-import { BackHandler, Dimensions, Platform, StyleSheet } from "react-native";
+import { StyleSheet, Platform, Dimensions } from "react-native";
 
-const screenHeight = Dimensions.get("window").height;
 const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
-export const loginStyle = StyleSheet.create({
-  //Styling goes here...
-  container: {
-    display: "flex",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  buttonText: {
-    color: "white",
-    fontSize: Platform.OS === "android" ? 17 : 23,
-    fontFamily:
-      Platform.OS === "android"
-        ? "RobotoCondensed-Regular"
-        : "RobotoCondensed-Bold",
-    fontWeight: "bold",
-  },
-  loginButtonView: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  loginButton: {
-    backgroundColor: "orange",
-    width: screenWidth - 30,
-    height: screenHeight / 15,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10,
-  },
-  biometricsButtonView: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 10,
-  },
-  biometricsButton: {
-    backgroundColor: "purple",
-    width: screenWidth - 30,
-    height: screenHeight / 15,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10,
-  },
-});
-
-export const signUpStyle = StyleSheet.create({
+export const pinAuthStyle = StyleSheet.create({
   //Styling goes here...
   container: {
     marginTop: Platform.OS === "android" ? 50 : 0,
@@ -114,13 +67,13 @@ export const signUpStyle = StyleSheet.create({
     fontSize: Platform.OS === "android" ? 20 : 25,
     fontWeight: "bold",
   },
-  registerBtnView: {
+  signInBtnView: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     marginTop: 10,
   },
-  registerBtn: {
+  signInBtn: {
     backgroundColor: "orange",
     width: screenWidth - 30,
     height: 50,
@@ -128,7 +81,7 @@ export const signUpStyle = StyleSheet.create({
     alignItems: "center",
     borderRadius: 10,
   },
-  registerBtnText: {
+  signInBtnText: {
     color: "white",
     fontSize: Platform.OS === "android" ? 17 : 23,
     fontFamily:
