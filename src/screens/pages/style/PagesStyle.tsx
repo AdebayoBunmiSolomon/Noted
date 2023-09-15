@@ -17,9 +17,8 @@ export const loginStyle = StyleSheet.create({
     fontSize: Platform.OS === "android" ? 17 : 23,
     fontFamily:
       Platform.OS === "android"
-        ? "RobotoCondensed-Regular"
+        ? "RobotoCondensed-Bold"
         : "RobotoCondensed-Bold",
-    fontWeight: "bold",
   },
   loginButtonView: {
     display: "flex",
@@ -83,7 +82,7 @@ export const signUpStyle = StyleSheet.create({
     fontSize: Platform.OS === "android" ? 20 : 25,
     fontFamily:
       Platform.OS === "android"
-        ? "RobotoCondensed-Regular"
+        ? "RobotoCondensed-Bold"
         : "RobotoCondensed-Bold",
     fontWeight: "bold",
   },
@@ -133,7 +132,7 @@ export const signUpStyle = StyleSheet.create({
     fontSize: Platform.OS === "android" ? 17 : 23,
     fontFamily:
       Platform.OS === "android"
-        ? "RobotoCondensed-Regular"
+        ? "RobotoCondensed-Bold"
         : "RobotoCondensed-Bold",
     fontWeight: "bold",
   },

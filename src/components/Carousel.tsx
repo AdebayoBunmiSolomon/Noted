@@ -18,11 +18,9 @@ const Carousel = ({ navigation }: any) => {
   const screenHeight = Dimensions.get("window").height;
   const [activeIndex, setActiveIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
-  const [text, setText] = useState("");
 
   useEffect(() => {
     let interval = setInterval(() => {
-      changeText(activeIndex);
       if (activeIndex === carouselData.length - 1) {
         flatListRef.current?.scrollToIndex({
           index: 0,
@@ -39,15 +37,14 @@ const Carousel = ({ navigation }: any) => {
     return () => clearInterval(interval);
   });
 
-  const changeText = (activeIndex: number) => {
-    if (activeIndex === 0) {
-      setText("Never miss a day with NOTEE...");
-    } else if (activeIndex === 1) {
-      setText("Have a great time using the app and rate us well...");
-    } else if (activeIndex === 2) {
-      setText("Never a support of data loss...");
-    }
-  };
+  const [loaded] = useFonts({
+    "RobotoCondensed-Regular": require("../../assets/fonts/RobotoCondensed-Regular.ttf"),
+    "RobotoCondensed-Bold": require("../../assets/fonts/RobotoCondensed-Bold.ttf"),
+  });
+
+  if (!loaded) {
+    return null;
+  }
 
   // const getItemLayout = ({ data, index }: any) => ({
   //   length: screenWidth,
@@ -59,25 +56,19 @@ const Carousel = ({ navigation }: any) => {
     {
       id: "01",
       image: require("../../assets/carousel/slide5.webp"),
+      text: "Never a support of data loss...",
     },
     {
       id: "02",
       image: require("../../assets/carousel/slide4.jpg"),
+      text: "Never miss a day with NOTEE...",
     },
     {
       id: "03",
       image: require("../../assets/carousel/slide6.jpg"),
+      text: "Have a great time using the app and rate us well...",
     },
   ];
-
-  const [loaded] = useFonts({
-    "RobotoCondensed-Regular": require("../../assets/fonts/RobotoCondensed-Regular.ttf"),
-    "RobotoCondensed-Bold": require("../../assets/fonts/RobotoCondensed-Bold.ttf"),
-  });
-
-  if (!loaded) {
-    return null;
-  }
 
   const clickMe = () => {
     navigation.dispatch(StackActions.replace("Login", {}));
@@ -99,13 +90,12 @@ const Carousel = ({ navigation }: any) => {
             style={{
               color: "white",
               fontFamily:
-                Platform.OS === "android"
-                  ? "RobotoCondensed-Regular"
+                Platform.OS === "ios"
+                  ? "RobotoCondensed-Bold"
                   : "RobotoCondensed-Bold",
               fontSize: Platform.OS === "android" ? 30 : 45,
-              fontWeight: "bold",
             }}>
-            {text}
+            {item.text}
             {/* Press continue to start using. */}
           </Text>
         </ImageBackground>
@@ -118,7 +108,6 @@ const Carousel = ({ navigation }: any) => {
 
     const index = scrollPosition / screenWidth;
     setActiveIndex(index);
-    changeText(activeIndex);
   };
 
   const renderDotIndicators = () => {
@@ -171,7 +160,7 @@ const Carousel = ({ navigation }: any) => {
 
       <View style={carouselStyle.buttonView}>
         <TouchableOpacity onPress={clickMe} style={carouselStyle.button}>
-          <Text style={carouselStyle.buttonText}>Continue</Text>
+          <Text style={[carouselStyle.buttonText, {}]}>Continue</Text>
         </TouchableOpacity>
       </View>
     </View>

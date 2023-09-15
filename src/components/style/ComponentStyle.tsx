@@ -12,18 +12,18 @@ export const carouselStyle = StyleSheet.create({
   button: {
     backgroundColor: "purple",
     width: screenWidth - 30,
-    height: "17%",
+    height: Platform.OS === "android" ? "17%" : "20%",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
-    marginBottom:
-      Platform.OS === "android" ? screenHeight / 15 : screenHeight / 9,
+    bottom: 40,
+    position: "absolute",
   },
   buttonView: {
     display: "flex",
     justifyContent: "flex-end",
     alignItems: "center",
-    height: screenHeight / 2.5,
+    height: Platform.OS === "android" ? screenHeight / 2.5 : screenHeight / 3,
     width: screenWidth,
   },
   buttonText: {
@@ -31,9 +31,8 @@ export const carouselStyle = StyleSheet.create({
     fontSize: Platform.OS === "android" ? 17 : 23,
     fontFamily:
       Platform.OS === "android"
-        ? "RobotoCondensed-Regular"
+        ? "RobotoCondensed-Bold"
         : "RobotoCondensed-Bold",
-    fontWeight: "bold",
   },
   imageFlatListView: {
     display: "flex",
@@ -61,12 +60,42 @@ export const addNoteStyle = StyleSheet.create({
   },
 });
 
-export const msgBoxStyle = StyleSheet.create({
+export const toastMsgStyle = StyleSheet.create({
   // styling goes here
-  container: {
-    marginTop: Platform.OS === "android" ? 50 : 0,
-    display: "flex",
+  safeAreaContainer: {
     alignItems: "center",
+  },
+  container: {
+    position: "absolute",
+    top: Platform.OS === "android" ? 50 : 48,
+    width: "90%",
+    height: 100,
+    borderRadius: 10,
+    padding: 12,
+    flexDirection: "row",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      height: 2,
+      width: 0,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+
+  text: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#FFF",
+  },
+  description: {
+    fontSize: 18,
+    fontWeight: "400",
+    color: "#FFF",
+  },
+  toastView: {
+    marginLeft: 12,
   },
 });
 

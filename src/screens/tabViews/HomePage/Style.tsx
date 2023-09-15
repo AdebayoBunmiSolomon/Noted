@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
     paddingLeft: 15,
   },
   buttonText: {
-    fontFamily: "Roboto-Regular",
+    fontFamily: "RobotoCondensed-Regular",
     fontSize: 15,
     fontWeight: "900",
     color: "white",

@@ -36,9 +36,8 @@ export const pinAuthStyle = StyleSheet.create({
     fontSize: Platform.OS === "android" ? 20 : 25,
     fontFamily:
       Platform.OS === "android"
-        ? "RobotoCondensed-Regular"
+        ? "RobotoCondensed-Bold"
         : "RobotoCondensed-Bold",
-    fontWeight: "bold",
   },
   formView: {
     display: "flex",
@@ -86,8 +85,7 @@ export const pinAuthStyle = StyleSheet.create({
     fontSize: Platform.OS === "android" ? 17 : 23,
     fontFamily:
       Platform.OS === "android"
-        ? "RobotoCondensed-Regular"
+        ? "RobotoCondensed-Bold"
         : "RobotoCondensed-Bold",
-    fontWeight: "bold",
   },
 });
