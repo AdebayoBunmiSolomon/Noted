@@ -54,9 +54,34 @@ export const carouselStyle = StyleSheet.create({
 export const addNoteStyle = StyleSheet.create({
   // styling goes here
   container: {
-    marginTop: Platform.OS === "android" ? 50 : 0,
+    marginTop: Platform.OS === "android" ? 70 : 80,
     display: "flex",
+  },
+  titleTextView: {
+    width: screenWidth,
+    display: "flex",
+    flexDirection: "column",
+    gap: 5,
     alignItems: "center",
+  },
+  titleText: {
+    borderBottomWidth: 0.6,
+    height: 40,
+    width: screenWidth - 20,
+    borderColor: "gray",
+    paddingLeft: 1,
+    fontFamily: "RobotoCondensed-Bold",
+    fontSize: Platform.OS === "ios" ? 20 : 15,
+  },
+  descText: {
+    borderBottomWidth: 0.6,
+    height: screenHeight / 4,
+    width: screenWidth - 20,
+    borderColor: "gray",
+    paddingLeft: 1,
+    fontFamily: "RobotoCondensed-Regular",
+    fontSize: Platform.OS === "ios" ? 20 : 15,
+    textAlignVertical: "bottom",
   },
 });
 
@@ -105,5 +130,38 @@ export const imagesStyle = StyleSheet.create({
     marginTop: Platform.OS === "android" ? 50 : 0,
     display: "flex",
     alignItems: "center",
+  },
+});
+
+export const buttonCard = StyleSheet.create({
+  buttonView: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 10,
+    marginTop: Platform.OS === "android" ? 20 : 30,
+  },
+  buttonSeperator: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  button: {
+    justifyContent: "center",
+    alignItems: "center",
+    height: Platform.OS === "android" ? 170 : 195,
+    width: Platform.OS === "android" ? 150 : 170,
+    marginLeft: Platform.OS === "android" ? screenWidth / 27 : 18,
+    backgroundColor: "white",
+    borderRadius: 10,
+  },
+  buttonIcon: {
+    width: 100,
+    height: 100,
+  },
+  buttonText: {
+    fontFamily: "RobotoCondensed-Regular",
+    fontSize: Platform.OS === "android" ? 18 : 21,
+    paddingTop: 10,
+    color: "gray",
   },
 });

@@ -1,9 +1,19 @@
 import React from "react";
-import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  Image,
+  TextInput,
+} from "react-native";
 import { styles } from "./Style";
 import { useFonts } from "expo-font";
+import { setOfIcons } from "../../../../Icons";
+import SearchIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import ButtonCard from "../../../components/ButtonCard";
 
-const HomePage = () => {
+const HomePage = ({ navigation }: any) => {
   const [loaded] = useFonts({
     "RobotoCondensed-Regular": require("../../../../assets/fonts/RobotoCondensed-Regular.ttf"),
   });
@@ -14,12 +24,27 @@ const HomePage = () => {
 
   return (
     <SafeAreaView style={[styles.container, {}]}>
-      <View style={styles.View}>
-        <Text style={styles.text}>Hello, from Home view screen</Text>
+      <View style={styles.manIconView}>
+        <Image source={setOfIcons.manIcon} style={styles.manIcon} />
+        <View style={styles.manIconTextView}>
+          <Text style={styles.manIconHelloText}>Hello,</Text>
+          <Text style={styles.manIconGreetingText}>Good Morning</Text>
+        </View>
       </View>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Click me</Text>
-      </TouchableOpacity>
+      <View style={styles.searchView}>
+        <TextInput style={styles.searchInput} placeholder='search here' />
+        <TouchableOpacity style={styles.searchIcon}>
+          <SearchIcon name='clipboard-text-search' size={28} color={"white"} />
+        </TouchableOpacity>
+      </View>
+      {/* <ScrollView> */}
+      <View style={styles.quickAccessView}>
+        <Text style={styles.quickAccessText}>Quick Access</Text>
+        <View>
+          <ButtonCard />
+        </View>
+      </View>
+      {/* </ScrollView> */}
     </SafeAreaView>
   );
 };

@@ -52,7 +52,7 @@ const PinAuth = ({ navigation }: any) => {
       ]);
       return;
     } else {
-      navigation.dispatch(StackActions.replace("Tab", {}));
+      navigation.dispatch(StackActions.replace("Tab", { screen: "Home Page" }));
     }
   };
   return (

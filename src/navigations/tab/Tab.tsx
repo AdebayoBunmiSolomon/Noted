@@ -30,9 +30,8 @@ const Tab = () => {
           }
           return <Icon name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: "white",
+        tabBarActiveTintColor: "purple",
         tabBarInactiveTintColor: "gray",
-        tabBarActiveBackgroundColor: "purple",
       })}>
       <Tabs.Screen
         name='Religion'
