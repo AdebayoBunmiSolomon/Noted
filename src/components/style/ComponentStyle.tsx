@@ -54,7 +54,7 @@ export const carouselStyle = StyleSheet.create({
 export const addNoteStyle = StyleSheet.create({
   // styling goes here
   container: {
-    marginTop: Platform.OS === "android" ? 70 : 80,
+    marginTop: Platform.OS === "android" ? 50 : 60,
     display: "flex",
   },
   titleTextView: {
@@ -82,6 +82,16 @@ export const addNoteStyle = StyleSheet.create({
     fontFamily: "RobotoCondensed-Regular",
     fontSize: Platform.OS === "ios" ? 20 : 15,
     textAlignVertical: "bottom",
+  },
+
+  roundButtonView: {
+    // backgroundColor: "crimson",
+    height: Platform.OS === "android" ? screenHeight / 2 : screenHeight / 2.4,
+    display: "flex",
+    alignItems: "flex-end",
+    gap: 15,
+    justifyContent: "flex-end",
+    paddingRight: 10,
   },
 });
 
@@ -134,25 +144,36 @@ export const imagesStyle = StyleSheet.create({
 });
 
 export const buttonCard = StyleSheet.create({
+  buttonMainView: {
+    display: "flex",
+    width: screenWidth - 900,
+    height: screenHeight,
+    alignItems: "center",
+  },
   buttonView: {
     display: "flex",
-    flexDirection: "row",
-    gap: 10,
-    marginTop: Platform.OS === "android" ? 20 : 30,
+    width: Platform.OS === "android" ? screenHeight - 570 : screenHeight - 600,
+    height: Platform.OS === "android" ? screenHeight / 2 : screenHeight / 1.7,
+    backgroundColor: "red",
+
+    // display: "flex",
+    // flexDirection: "row",
+    // gap: 10,
+    // marginTop: Platform.OS === "android" ? 20 : 30,
   },
   buttonSeperator: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
+    // display: "flex",
+    // flexDirection: "row",
+    // alignItems: "center",
   },
   button: {
-    justifyContent: "center",
-    alignItems: "center",
-    height: Platform.OS === "android" ? 170 : 195,
-    width: Platform.OS === "android" ? 150 : 170,
-    marginLeft: Platform.OS === "android" ? screenWidth / 27 : 18,
-    backgroundColor: "white",
-    borderRadius: 10,
+    // justifyContent: "center",
+    // alignItems: "center",
+    // height: Platform.OS === "android" ? 170 : 195,
+    // width: Platform.OS === "android" ? 150 : 170,
+    // marginLeft: Platform.OS === "android" ? screenWidth / 27 : 18,
+    // backgroundColor: "white",
+    // borderRadius: 10,
   },
   buttonIcon: {
     width: 100,
@@ -163,5 +184,50 @@ export const buttonCard = StyleSheet.create({
     fontSize: Platform.OS === "android" ? 18 : 21,
     paddingTop: 10,
     color: "gray",
+  },
+});
+
+export const headerStyle = StyleSheet.create({
+  //Styling goes here...
+  header: {
+    display: "flex",
+    flexDirection: "row",
+    marginBottom: 30,
+  },
+  bckArrowBtn: {
+    backgroundColor: "whitesmoke",
+    height: 35,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 17.5,
+    overflow: "hidden",
+    borderColor: "purple",
+    borderWidth: 1,
+    marginLeft: 10,
+  },
+  headerTextView: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: screenWidth,
+  },
+  headerText: {
+    paddingRight: screenWidth / 6,
+    color: "black",
+    fontSize: Platform.OS === "android" ? 20 : 25,
+    fontFamily: "RobotoCondensed-Bold",
+  },
+});
+
+export const roundButtonStyle = StyleSheet.create({
+  roundButton: {
+    backgroundColor: "purple",
+    width: 50,
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 100,
+    borderWidth: 0.7,
+    borderColor: "gray",
   },
 });

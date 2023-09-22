@@ -30,25 +30,23 @@ const ButtonCard = () => {
   const navigation: any = useNavigation();
 
   return (
-    <View>
+    <View style={buttonCard.buttonMainView}>
       <FlatList
         key={"#"}
         data={buttonList}
         keyExtractor={(item) => "#" + item.buttonText}
         renderItem={({ item }) => (
           <View style={buttonCard.buttonView}>
-            <View style={buttonCard.buttonSeperator}>
-              <TouchableOpacity
-                style={buttonCard.button}
-                onPress={() => {
-                  {
-                    navigation.navigate(String(item.navigation));
-                  }
-                }}>
-                <Image source={item.icon} style={buttonCard.buttonIcon} />
-                <Text style={buttonCard.buttonText}>{item.buttonText}</Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              style={buttonCard.button}
+              onPress={() => {
+                {
+                  navigation.navigate(String(item.navigation));
+                }
+              }}>
+              <Image source={item.icon} style={buttonCard.buttonIcon} />
+              <Text style={buttonCard.buttonText}>{item.buttonText}</Text>
+            </TouchableOpacity>
           </View>
         )}
         horizontal={false}

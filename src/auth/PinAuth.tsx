@@ -12,6 +12,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import PinIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import PasswordIcon from "react-native-vector-icons/FontAwesome5";
 import { StackActions } from "@react-navigation/native";
+import Header from "../components/Header";
 
 const PinAuth = ({ navigation }: any) => {
   const ref_input2 = useRef<TextInput>(null);
@@ -57,19 +58,7 @@ const PinAuth = ({ navigation }: any) => {
   };
   return (
     <SafeAreaView style={pinAuthStyle.container}>
-      <View style={pinAuthStyle.header}>
-        <View>
-          <TouchableOpacity style={pinAuthStyle.bckArrowBtn} onPress={goBack}>
-            <Text>
-              <Icon name='arrow-back' size={30} color={"purple"} />
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={pinAuthStyle.headerTextView}>
-          <Text style={pinAuthStyle.headerText}>Pin Authentication</Text>
-        </View>
-      </View>
+      <Header headerText={"Pin Authentication"} goBack={goBack} />
 
       <View style={pinAuthStyle.formView}>
         <View>

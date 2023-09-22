@@ -13,7 +13,7 @@ import { setOfIcons } from "../../../../Icons";
 import SearchIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import ButtonCard from "../../../components/ButtonCard";
 
-const HomePage = ({ navigation }: any) => {
+const HomePage = () => {
   const [loaded] = useFonts({
     "RobotoCondensed-Regular": require("../../../../assets/fonts/RobotoCondensed-Regular.ttf"),
   });

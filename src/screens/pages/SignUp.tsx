@@ -12,6 +12,7 @@ import PinIcon from "react-native-vector-icons/Entypo";
 import PasswordIcon from "react-native-vector-icons/FontAwesome5";
 import ToastMessage from "../../components/ToastMessage";
 import { StackActions } from "@react-navigation/native";
+import Header from "../../components/Header";
 
 interface SignUpProps {
   navigation: any;
@@ -103,19 +104,7 @@ const SignUp: React.FunctionComponent<SignUpProps> = ({ navigation }) => {
         type={toastType}
         ref={toastRef}
       />
-      <View style={signUpStyle.header}>
-        <View>
-          <TouchableOpacity style={signUpStyle.bckArrowBtn} onPress={goBack}>
-            <Text>
-              <Icon name='arrow-back' size={30} color={"purple"} />
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={signUpStyle.headerTextView}>
-          <Text style={signUpStyle.headerText}>Sign up</Text>
-        </View>
-      </View>
+      <Header headerText={"Sign up"} goBack={goBack} />
 
       <View style={signUpStyle.formView}>
         <View>

@@ -55,43 +55,12 @@ export const signUpStyle = StyleSheet.create({
     marginTop: Platform.OS === "android" ? 50 : 0,
     flex: 1,
   },
-  header: {
-    display: "flex",
-    flexDirection: "row",
-  },
-  bckArrowBtn: {
-    backgroundColor: "whitesmoke",
-    height: 35,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 17.5,
-    overflow: "hidden",
-    borderColor: "purple",
-    borderWidth: 1,
-    marginLeft: 10,
-  },
-  headerTextView: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: screenWidth,
-  },
-  headerText: {
-    paddingRight: screenWidth / 6,
-    color: "black",
-    fontSize: Platform.OS === "android" ? 20 : 25,
-    fontFamily:
-      Platform.OS === "android"
-        ? "RobotoCondensed-Bold"
-        : "RobotoCondensed-Bold",
-    fontWeight: "bold",
-  },
   formView: {
     display: "flex",
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
-    marginTop: screenHeight / 5,
+    marginTop: screenHeight / 7,
     gap: 25,
   },
   formTextInputView: {
@@ -134,6 +103,5 @@ export const signUpStyle = StyleSheet.create({
       Platform.OS === "android"
         ? "RobotoCondensed-Bold"
         : "RobotoCondensed-Bold",
-    fontWeight: "bold",
   },
 });
