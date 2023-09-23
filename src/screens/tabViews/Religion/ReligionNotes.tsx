@@ -10,7 +10,7 @@ const ReligionNotes = () => {
       {(() => {
         switch (addNote) {
           case true:
-            return <AddNote />;
+            return <AddNote headerText={"Add religion notes"} />;
           default:
             return (
               <SafeAreaView style={styles.container}>
