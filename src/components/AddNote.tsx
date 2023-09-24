@@ -32,12 +32,12 @@ const AddNote: React.FunctionComponent<addNoteProps> = ({ headerText }) => {
         <Header headerText={headerText} goBack={goBack} />
         <View style={addNoteStyle.titleTextView}>
           <TextInput
-            placeholder='title'
+            placeholder='Title'
             style={addNoteStyle.titleText}
             maxLength={50}
           />
           <TextInput
-            placeholder='description'
+            placeholder='Description'
             style={addNoteStyle.descText}
             maxLength={500}
             multiline={true}

@@ -81,3 +81,31 @@ export const styles = StyleSheet.create({
     color: "black",
   },
 });
+
+export const bottomSheetModalStyle = StyleSheet.create({
+  bottomSheetView: {
+    display: "flex",
+    alignItems: "center",
+  },
+  headerText: {
+    fontSize: 20,
+    fontFamily: "RobotoCondensed-Bold",
+  },
+  selectView: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 15,
+  },
+  selectButton: {
+    flexDirection: "row",
+    width: screenWidth,
+    justifyContent: "space-between",
+    paddingLeft: 5,
+    paddingRight: 5,
+  },
+  selectButtonText: {
+    fontSize: Platform.OS === "android" ? 17 : 22,
+    fontFamily: "RobotoCondensed-Regular",
+    color: "gray",
+  },
+});
