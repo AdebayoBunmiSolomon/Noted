@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { searchNoteStyle } from "./style/ComponentStyle";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFonts } from "expo-font";
 
 interface SearchNoteProps {
   noteType: string;
@@ -45,15 +46,37 @@ const SearchNote: React.FunctionComponent<SearchNoteProps> = ({ noteType }) => {
     loadNoteData();
   }, [noteType]);
 
+  const [loaded] = useFonts({
+    "RobotoCondensed-Bold": require("../../assets/fonts/RobotoCondensed-Bold.ttf"),
+    "RobotoCondensed-Regular": require("../../assets/fonts/RobotoCondensed-Regular.ttf"),
+  });
+
+  if (!loaded) {
+    return null;
+  }
+
   return (
     <View style={searchNoteStyle.container}>
       <FlatList
         data={noteData}
-        keyExtractor={(item) => item.id}
+        key={"#"}
+        keyExtractor={(item) => "#" + item.id.toString()}
+        numColumns={2}
+        columnWrapperStyle={{
+          justifyContent: "space-between",
+          paddingRight: 6,
+        }}
         renderItem={({ item }) => (
-          <View>
-            <Text>{item.title}</Text>
-          </View>
+          <>
+            <TouchableOpacity style={searchNoteStyle.flatListButton}>
+              <Text style={searchNoteStyle.noteTitle} numberOfLines={2}>
+                {item.title}
+              </Text>
+              <Text style={searchNoteStyle.noteDesc} numberOfLines={3}>
+                {item.desc}
+              </Text>
+            </TouchableOpacity>
+          </>
         )}
       />
     </View>

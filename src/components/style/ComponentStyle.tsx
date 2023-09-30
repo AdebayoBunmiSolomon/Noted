@@ -100,6 +100,31 @@ export const searchNoteStyle = StyleSheet.create({
     flex: 1,
     paddingLeft: 5,
     paddingTop: 20,
+    // backgroundColor: "red",
+    width: "100%",
+  },
+  flatListButton: {
+    backgroundColor: "white",
+    paddingLeft: 7,
+    paddingTop: 7,
+    height: Platform.OS === "android" ? 100 : 105,
+    width: Platform.OS === "android" ? 170 : 180,
+    borderRadius: 10,
+    marginVertical: 5,
+    overflow: "hidden",
+    // display: "flex",
+  },
+  noteTitle: {
+    fontFamily: "RobotoCondensed-Bold",
+    fontSize: 16,
+    paddingBottom: 5,
+    color: "purple",
+  },
+  noteDesc: {
+    fontFamily: "RobotoCondensed-Regular",
+    fontSize: 15,
+    paddingBottom: 5,
+    color: "orange",
   },
 });
 

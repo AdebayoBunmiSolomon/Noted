@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     paddingLeft: 5,
-    paddingTop: Platform.OS === "android" ? 50 : 60,
+    paddingTop: Platform.OS === "android" ? 70 : 80,
   },
   manIcon: {
     width: 60,

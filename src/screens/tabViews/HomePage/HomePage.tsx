@@ -228,7 +228,7 @@ const HomePage = () => {
         <View style={styles.searchView}>
           <TextInput
             style={styles.searchInput}
-            placeholder='search here'
+            placeholder='search by title'
             value={searchInput}
             onChangeText={(input) => {
               setSearchInput((searchInput = input));
