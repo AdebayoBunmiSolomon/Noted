@@ -58,7 +58,7 @@ const ToastMessage: FunctionComponent<ToastMessageProps> = forwardRef(
 
     return (
       <>
-        {isVisible && (
+        {isVisible === true ? (
           <SafeAreaView style={toastMsgStyle.safeAreaContainer}>
             <Animated.View
               style={[
@@ -74,7 +74,7 @@ const ToastMessage: FunctionComponent<ToastMessageProps> = forwardRef(
               </View>
             </Animated.View>
           </SafeAreaView>
-        )}
+        ) : null}
       </>
     );
   }

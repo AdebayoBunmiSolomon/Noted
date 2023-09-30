@@ -57,19 +57,6 @@ const Login = () => {
     ]);
   };
 
-  const twoButtonAlert = () => {
-    Alert.alert("Welcome to app", "Subscribe now", [
-      {
-        text: "Back",
-        onPress: () => console.log("Cancel pressed"),
-      },
-      {
-        text: "Ok",
-        onPress: () => console.log("Ok pressed"),
-      },
-    ]);
-  };
-
   const handleBiometricAuth = async () => {
     //check if hardware supports biometric
     const isBioMetricAvailable = await LocalAuthentication.hasHardwareAsync();

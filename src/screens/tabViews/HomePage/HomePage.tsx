@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
-  TouchableWithoutFeedback,
+  Alert,
 } from "react-native";
 import { styles } from "./Style";
 import { bottomSheetModalStyle } from "./Style";
@@ -21,9 +21,17 @@ import {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
+import SearchNote from "../../../components/SearchNote";
+import { StatusBar } from "expo-status-bar";
 
 const HomePage = () => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  let [searchInput, setSearchInput] = useState("");
+
+  const date = new Date();
+  const curHrs: number = date.getHours();
+  let [greeting, setGreeting] = useState("");
+
   let [isOpen, setIsOpen] = useState(false);
   let [isSelection, setIsSelection] = useState({
     home: "",
@@ -31,6 +39,20 @@ const HomePage = () => {
     religion: "",
   });
   let [selectionState, setSelectionState] = useState("");
+
+  const getGreeting = () => {
+    if (curHrs >= 0 && curHrs < 12) {
+      setGreeting("Good Morning");
+    } else if (curHrs >= 12 && curHrs < 16) {
+      setGreeting("Good Afternoon");
+    } else if (curHrs >= 16) {
+      setGreeting("Good Evening");
+    }
+  };
+
+  useState(() => {
+    getGreeting();
+  });
 
   const snapPoints = ["25%"];
 
@@ -47,31 +69,8 @@ const HomePage = () => {
     setIsOpen((isOpen = true));
   };
 
-  return (
-    <GestureHandlerRootView style={[styles.container, {}]}>
-      <View style={styles.manIconView}>
-        <Image source={setOfIcons.manIcon} style={styles.manIcon} />
-        <View style={styles.manIconTextView}>
-          <Text style={styles.manIconHelloText}>Hello,</Text>
-          <Text style={styles.manIconGreetingText}>Good Morning</Text>
-        </View>
-      </View>
-      <View style={styles.searchView}>
-        <TextInput style={styles.searchInput} placeholder='search here' />
-        <TouchableOpacity style={styles.dropDownIcon} onPress={showModal}>
-          <ArrowDown name='chevron-down' size={28} color={"white"} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.searchIcon}>
-          <SearchIcon name='clipboard-text-search' size={28} color={"white"} />
-        </TouchableOpacity>
-      </View>
-      {/* <ScrollView> */}
-      <View style={styles.quickAccessView}>
-        <Text style={styles.quickAccessText}>Quick Access</Text>
-        <View>
-          <ButtonCard />
-        </View>
-      </View>
+  const renderBottomSheetModal = () => {
+    return (
       <View
         style={[
           {
@@ -80,6 +79,7 @@ const HomePage = () => {
             height: isOpen === true ? "100%" : undefined,
             zIndex: 0,
             position: isOpen === true ? "absolute" : undefined,
+            top: 0,
           },
         ]}>
         <BottomSheetModalProvider>
@@ -165,7 +165,95 @@ const HomePage = () => {
           </BottomSheetModal>
         </BottomSheetModalProvider>
       </View>
-    </GestureHandlerRootView>
+    );
+  };
+
+  const renderQuickAccessView = () => {
+    return (
+      <>
+        <View style={styles.quickAccessView}>
+          <Text style={styles.quickAccessText}>Quick Access</Text>
+          <View>
+            <ButtonCard />
+          </View>
+        </View>
+        {renderBottomSheetModal()}
+      </>
+    );
+  };
+
+  const alertComponent = (
+    title: string,
+    message: string,
+    buttonText: string,
+    buttonOnpress: any
+  ) => {
+    return Alert.alert(title, message, [
+      {
+        text: buttonText,
+        onPress: buttonOnpress(),
+      },
+    ]);
+  };
+
+  const renderSearchNote = () => {
+    if (selectionState === "" && searchInput) {
+      alertComponent("Notee", "Please select note type", "Ok", () => {
+        console.log("Ok pressed");
+      });
+      setSearchInput("");
+      return;
+    } else {
+      return (
+        //Show search note
+        <>
+          <SearchNote noteType={selectionState} />
+          {renderBottomSheetModal()}
+        </>
+      );
+    }
+  };
+
+  return (
+    <>
+      <StatusBar backgroundColor='purple' />
+      <GestureHandlerRootView style={[styles.container, {}]}>
+        <View style={styles.manIconView}>
+          <Image source={setOfIcons.manIcon} style={styles.manIcon} />
+          <View style={styles.manIconTextView}>
+            <Text style={styles.manIconHelloText}>Hello,</Text>
+            <Text style={styles.manIconGreetingText}>{greeting}</Text>
+          </View>
+        </View>
+        <View style={styles.searchView}>
+          <TextInput
+            style={styles.searchInput}
+            placeholder='search here'
+            value={searchInput}
+            onChangeText={(input) => {
+              setSearchInput((searchInput = input));
+              console.log(searchInput);
+            }}
+          />
+          <TouchableOpacity style={styles.dropDownIcon} onPress={showModal}>
+            <ArrowDown name='chevron-down' size={28} color={"white"} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.searchIcon}>
+            <SearchIcon
+              name='clipboard-text-search'
+              size={28}
+              color={"white"}
+            />
+          </TouchableOpacity>
+        </View>
+        {/* <ScrollView> */}
+        {!searchInput.trim()
+          ? //render quick access view if empty
+            renderQuickAccessView()
+          : //render search note view if not empty
+            renderSearchNote()}
+      </GestureHandlerRootView>
+    </>
   );
 };
 

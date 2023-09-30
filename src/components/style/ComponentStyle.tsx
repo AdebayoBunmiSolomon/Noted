@@ -65,23 +65,23 @@ export const addNoteStyle = StyleSheet.create({
     alignItems: "center",
   },
   titleText: {
-    borderBottomWidth: 0.6,
+    borderBottomWidth: 2,
     height: 40,
     width: screenWidth - 20,
-    borderColor: "gray",
+    borderColor: "purple",
     paddingLeft: 1,
     fontFamily: "RobotoCondensed-Bold",
     fontSize: Platform.OS === "ios" ? 20 : 15,
   },
   descText: {
-    borderBottomWidth: 0.6,
+    borderBottomWidth: 2,
     height: screenHeight / 4,
     width: screenWidth - 20,
-    borderColor: "gray",
+    borderColor: "purple",
     paddingLeft: 1,
     fontFamily: "RobotoCondensed-Regular",
     fontSize: Platform.OS === "ios" ? 20 : 15,
-    textAlignVertical: "bottom",
+    // textAlignVertical: Platform.OS === "android" ? "bottom" : "bottom",
   },
 
   roundButtonView: {
@@ -95,10 +95,21 @@ export const addNoteStyle = StyleSheet.create({
   },
 });
 
+export const searchNoteStyle = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingLeft: 5,
+    paddingTop: 20,
+  },
+});
+
 export const toastMsgStyle = StyleSheet.create({
   // styling goes here
   safeAreaContainer: {
     alignItems: "center",
+    // backgroundColor: "#4b404063",
+    // width: "100%",
+    // height: "100%",
   },
   container: {
     position: "absolute",
@@ -117,20 +128,24 @@ export const toastMsgStyle = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+    zIndex: 100,
   },
 
   text: {
     fontSize: 18,
     fontWeight: "700",
     color: "#FFF",
+    zIndex: 100,
   },
   description: {
     fontSize: 18,
     fontWeight: "400",
     color: "#FFF",
+    zIndex: 100,
   },
   toastView: {
     marginLeft: 12,
+    zIndex: 100,
   },
 });
 

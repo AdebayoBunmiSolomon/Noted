@@ -1,5 +1,11 @@
 import React from "react";
-import { SafeAreaView, View, Text, TouchableOpacity } from "react-native";
+import {
+  SafeAreaView,
+  View,
+  Text,
+  TouchableOpacity,
+  GestureResponderEvent,
+} from "react-native";
 import { headerStyle } from "./style/ComponentStyle";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useFonts } from "expo-font";

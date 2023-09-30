@@ -8,6 +8,7 @@ interface CloseButtonProps {
 
 interface CheckButtonProps {
   icon: any;
+  onclickCreate: any;
 }
 
 export const CloseButton: React.FunctionComponent<CloseButtonProps> = ({
@@ -25,10 +26,13 @@ export const CloseButton: React.FunctionComponent<CloseButtonProps> = ({
 
 export const CheckButton: React.FunctionComponent<CheckButtonProps> = ({
   icon,
+  onclickCreate,
 }) => {
   return (
     <View>
-      <TouchableOpacity style={roundButtonStyle.roundButton}>
+      <TouchableOpacity
+        style={roundButtonStyle.roundButton}
+        onPress={onclickCreate}>
         <Text>{icon}</Text>
       </TouchableOpacity>
     </View>

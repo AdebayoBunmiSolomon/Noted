@@ -6,12 +6,12 @@ const screenHeight = Dimensions.get("window").height;
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: Platform.OS === "android" ? 70 : 80,
   },
   manIconView: {
     display: "flex",
     flexDirection: "row",
     paddingLeft: 5,
+    paddingTop: Platform.OS === "android" ? 50 : 60,
   },
   manIcon: {
     width: 60,
