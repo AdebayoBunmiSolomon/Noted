@@ -71,6 +71,7 @@ const AddNote: React.FunctionComponent<addNoteProps> = ({
       time: Date.now(),
       title: addNoteInput.title.replace(/^\s+|\s+$/gm, ""),
       desc: addNoteInput.desc,
+      type: noteType,
     },
   ];
 
@@ -83,6 +84,11 @@ const AddNote: React.FunctionComponent<addNoteProps> = ({
       await AsyncStorage.setItem("religion", JSON.stringify(noteData));
       alertComponent("Religion notes", "First note added", "Ok", () => {
         console.log("Ok pressed");
+      });
+      setAddNoteInput({
+        ...addNoteInput,
+        title: "",
+        desc: "",
       });
     } else {
       //remove whitespace from title input
@@ -113,6 +119,7 @@ const AddNote: React.FunctionComponent<addNoteProps> = ({
         time: Date.now(),
         title: addNoteInput.title.replace(/^\s+|\s+$/gm, ""),
         desc: addNoteInput.desc,
+        type: noteType,
       });
       await AsyncStorage.setItem("religion", JSON.stringify(parsedNoteData));
       alertComponent(
@@ -138,6 +145,11 @@ const AddNote: React.FunctionComponent<addNoteProps> = ({
       alertComponent("Home notes", "First note added", "Ok", () => {
         console.log("Ok pressed");
       });
+      setAddNoteInput({
+        ...addNoteInput,
+        title: "",
+        desc: "",
+      });
     } else {
       //remove whitespace from title input
       const formattedTitle = addNoteInput.title.replace(/^\s+|\s+$/gm, "");
@@ -162,6 +174,7 @@ const AddNote: React.FunctionComponent<addNoteProps> = ({
         time: Date.now(),
         title: addNoteInput.title.replace(/^\s+|\s+$/gm, ""),
         desc: addNoteInput.desc,
+        type: noteType,
       });
       await AsyncStorage.setItem("home", JSON.stringify(parsedNoteData));
       alertComponent("Home notes", "New note added successfully", "Ok", () => {
@@ -181,6 +194,11 @@ const AddNote: React.FunctionComponent<addNoteProps> = ({
       await AsyncStorage.setItem("work", JSON.stringify(noteData));
       alertComponent("Work notes", "First note added", "Ok", () => {
         console.log("Ok pressed");
+      });
+      setAddNoteInput({
+        ...addNoteInput,
+        title: "",
+        desc: "",
       });
     } else {
       //remove whitespace from title input
@@ -206,6 +224,7 @@ const AddNote: React.FunctionComponent<addNoteProps> = ({
         time: Date.now(),
         title: addNoteInput.title.replace(/^\s+|\s+$/gm, ""),
         desc: addNoteInput.desc,
+        type: noteType,
       });
       await AsyncStorage.setItem("work", JSON.stringify(parsedNoteData));
       alertComponent("Work notes", "New note added successfully", "Ok", () => {
@@ -294,7 +313,7 @@ const AddNote: React.FunctionComponent<addNoteProps> = ({
           <TextInput
             placeholder='Description'
             style={addNoteStyle.descText}
-            maxLength={1000}
+            maxLength={300}
             multiline={true}
             // ref={ref_descInput}
             textAlignVertical='bottom'
@@ -308,13 +327,16 @@ const AddNote: React.FunctionComponent<addNoteProps> = ({
         <View style={addNoteStyle.roundButtonView}>
           <CheckButton
             icon={<Check name='check' size={20} color={"white"} />}
-            onclickCreate={() => {
+            onPress={() => {
               onclickCreate();
               addNote();
             }}
           />
           <CloseButton
             icon={<Close name='close' size={24} color={"white"} />}
+            onPress={() => {
+              console.log("Close pressed");
+            }}
           />
         </View>
       </ScrollView>

@@ -3,6 +3,7 @@ import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { searchNoteStyle } from "./style/ComponentStyle";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFonts } from "expo-font";
+import { useNavigation } from "@react-navigation/native";
 
 interface SearchNoteProps {
   noteType: string;
@@ -11,6 +12,7 @@ interface SearchNoteProps {
 const SearchNote: React.FunctionComponent<SearchNoteProps> = ({ noteType }) => {
   let [noteData, setNoteData] = useState<any>();
   const noteTypeText = noteType;
+  const navigation: any = useNavigation();
 
   const loadNoteData = async () => {
     if (noteTypeText === "religion") {
@@ -18,7 +20,8 @@ const SearchNote: React.FunctionComponent<SearchNoteProps> = ({ noteType }) => {
       const parsedNoteData = JSON.parse(getNoteData!);
       if (parsedNoteData !== null) {
         setNoteData((noteData = parsedNoteData));
-        console.log(noteData);
+      } else {
+        setNoteData([]);
       }
       return;
     }
@@ -27,7 +30,8 @@ const SearchNote: React.FunctionComponent<SearchNoteProps> = ({ noteType }) => {
       const parsedNoteData = JSON.parse(getNoteData!);
       if (parsedNoteData !== null) {
         setNoteData((noteData = parsedNoteData));
-        console.log(noteData);
+      } else {
+        setNoteData((noteData = null));
       }
       return;
     }
@@ -36,7 +40,8 @@ const SearchNote: React.FunctionComponent<SearchNoteProps> = ({ noteType }) => {
       const parsedNoteData = JSON.parse(getNoteData!);
       if (parsedNoteData !== null) {
         setNoteData((noteData = parsedNoteData));
-        console.log(noteData);
+      } else {
+        setNoteData((noteData = null));
       }
       return;
     }
@@ -44,7 +49,7 @@ const SearchNote: React.FunctionComponent<SearchNoteProps> = ({ noteType }) => {
 
   useEffect(() => {
     loadNoteData();
-  }, [noteType]);
+  }, [{ noteType, noteData }]);
 
   const [loaded] = useFonts({
     "RobotoCondensed-Bold": require("../../assets/fonts/RobotoCondensed-Bold.ttf"),
@@ -55,8 +60,16 @@ const SearchNote: React.FunctionComponent<SearchNoteProps> = ({ noteType }) => {
     return null;
   }
 
+  const openNote = (noteDetail: any) => {
+    navigation.navigate("NoteDetail", { noteDetail });
+  };
+
   return (
     <View style={searchNoteStyle.container}>
+      <Text>
+        You have {noteData ? noteData.length : "0"} {noteType}{" "}
+        {noteData?.length >= 0 && noteData?.length <= 1 ? "note" : "notes"}
+      </Text>
       <FlatList
         data={noteData}
         key={"#"}
@@ -68,7 +81,11 @@ const SearchNote: React.FunctionComponent<SearchNoteProps> = ({ noteType }) => {
         }}
         renderItem={({ item }) => (
           <>
-            <TouchableOpacity style={searchNoteStyle.flatListButton}>
+            <TouchableOpacity
+              style={searchNoteStyle.flatListButton}
+              onPress={() => {
+                openNote(item);
+              }}>
               <Text style={searchNoteStyle.noteTitle} numberOfLines={2}>
                 {item.title}
               </Text>

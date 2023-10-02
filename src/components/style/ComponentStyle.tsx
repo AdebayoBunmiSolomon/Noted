@@ -51,6 +51,39 @@ export const carouselStyle = StyleSheet.create({
   },
 });
 
+export const noteDetailsStyle = StyleSheet.create({
+  container: {
+    marginTop: Platform.OS === "android" ? 50 : 60,
+    display: "flex",
+  },
+  noteDetailView: {
+    // flex: 1,
+    paddingHorizontal: 15,
+  },
+  title: {
+    fontSize: 30,
+    fontFamily: "RobotoCondensed-Bold",
+    color: "gray",
+  },
+  desc: {
+    fontSize: 20,
+    fontFamily: "RobotoCondensed-Regular",
+    color: "orange",
+    opacity: 0.6,
+  },
+  timeText: {
+    textAlign: "right",
+    opacity: 0.5,
+    fontSize: 14,
+    fontFamily: "RobotoCondensed-Regular",
+  },
+  buttonView: {
+    position: "absolute",
+    right: 15,
+    bottom: 50,
+  },
+});
+
 export const addNoteStyle = StyleSheet.create({
   // styling goes here
   container: {

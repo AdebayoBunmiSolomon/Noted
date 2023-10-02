@@ -12,6 +12,7 @@ import {
 import { carouselStyle } from "./style/ComponentStyle";
 import { StackActions } from "@react-navigation/native";
 import { useFonts } from "expo-font";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Carousel = ({ navigation }: any) => {
   const screenWidth = Dimensions.get("window").width;
@@ -19,7 +20,12 @@ const Carousel = ({ navigation }: any) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
 
+  // const removeAllAsyncStorageItem = async () => {
+  //   await AsyncStorage.clear();
+  // };
+
   useEffect(() => {
+    // removeAllAsyncStorageItem();
     let interval = setInterval(() => {
       if (activeIndex === carouselData.length - 1) {
         flatListRef.current?.scrollToIndex({

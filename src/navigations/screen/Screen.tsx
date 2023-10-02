@@ -5,6 +5,7 @@ import Tab from "../tab/Tab";
 import Login from "../../screens/pages/Login";
 import SignUp from "../../screens/pages/SignUp";
 import PinAuth from "../../auth/PinAuth";
+import NoteDetail from "../../components/NoteDetail";
 
 const Stacks = createNativeStackNavigator();
 
@@ -39,6 +40,11 @@ const Screen = () => {
         options={{
           animation: "slide_from_right",
         }}
+      />
+      <Stacks.Screen
+        name='NoteDetail'
+        component={NoteDetail}
+        options={{ animation: "slide_from_bottom" }}
       />
     </Stacks.Navigator>
   );
