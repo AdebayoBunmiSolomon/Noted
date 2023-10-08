@@ -13,6 +13,7 @@ import PasswordIcon from "react-native-vector-icons/FontAwesome5";
 import ToastMessage from "../../components/ToastMessage";
 import { StackActions } from "@react-navigation/native";
 import Header from "../../components/Header";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface SignUpProps {
   navigation: any;
@@ -36,6 +37,15 @@ const SignUp: React.FunctionComponent<SignUpProps> = ({ navigation }) => {
     input3: "",
     input4: "",
   });
+
+  const userPin: string = pin.input1 + pin.input2 + pin.input3 + pin.input4;
+
+  const signUpUser = async () => {
+    await AsyncStorage.setItem("user", JSON.stringify(userPin));
+    // const getUser: string | null = await AsyncStorage.getItem("user");
+    // const parsedUserData = JSON.parse(getUser!);
+    // console.log(parsedUserData);
+  };
 
   const signUp = () => {
     console.log({ pin });
@@ -75,6 +85,7 @@ const SignUp: React.FunctionComponent<SignUpProps> = ({ navigation }) => {
       setToastDesc("pin completed");
       setToastType("success");
       handleShowToast();
+      signUpUser();
       const timer = setTimeout(() => {
         navigation.dispatch(
           StackActions.replace("Tab", {

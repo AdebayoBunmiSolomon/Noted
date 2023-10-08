@@ -23,10 +23,13 @@ import {
 } from "@gorhom/bottom-sheet";
 import SearchNote from "../../../components/SearchNote";
 import { StatusBar } from "expo-status-bar";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const HomePage = () => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   let [searchInput, setSearchInput] = useState("");
+  let [searchResult, setSearchResult] = useState<any>();
+  let [isLoading, setIsLoading] = useState<boolean>(true);
 
   const date = new Date();
   const curHrs: number = date.getHours();
@@ -67,6 +70,24 @@ const HomePage = () => {
   const showModal = () => {
     bottomSheetModalRef.current?.present();
     setIsOpen((isOpen = true));
+  };
+
+  const renderSearchNote = () => {
+    if (!selectionState.trim() && searchInput) {
+      alertComponent("Notee", "Please select note type", "Ok", () => {
+        console.log("Ok pressed");
+      });
+      setSearchInput("");
+      return;
+    } else {
+      return (
+        //Show search note
+        <>
+          <SearchNote noteType={selectionState} />
+          {renderBottomSheetModal()}
+        </>
+      );
+    }
   };
 
   const renderBottomSheetModal = () => {
@@ -196,21 +217,26 @@ const HomePage = () => {
     ]);
   };
 
-  const renderSearchNote = () => {
-    if (selectionState === "" && searchInput) {
-      alertComponent("Notee", "Please select note type", "Ok", () => {
-        console.log("Ok pressed");
-      });
-      setSearchInput("");
-      return;
-    } else {
-      return (
-        //Show search note
-        <>
-          <SearchNote noteType={selectionState} />
-          {renderBottomSheetModal()}
-        </>
-      );
+  const renderSearchResult = async () => {
+    setIsLoading((isLoading = true));
+    try {
+      if (selectionState === "work") {
+        setIsLoading((isLoading = true));
+        const getSearchResult: string | null = await AsyncStorage.getItem(
+          "work"
+        );
+        setIsLoading((isLoading = true));
+        const parsedSearchResult = JSON.parse(getSearchResult!);
+        setIsLoading((isLoading = false));
+        if (parsedSearchResult !== null) {
+          console.log(parsedSearchResult);
+          setSearchResult((searchResult = parsedSearchResult));
+          setIsLoading((isLoading = false));
+        }
+      }
+    } catch (error: any) {
+      setIsLoading((isLoading = false));
+      console.log(error.toString());
     }
   };
 
@@ -238,7 +264,9 @@ const HomePage = () => {
           <TouchableOpacity style={styles.dropDownIcon} onPress={showModal}>
             <ArrowDown name='chevron-down' size={28} color={"white"} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.searchIcon}>
+          <TouchableOpacity
+            style={styles.searchIcon}
+            onPress={renderSearchResult}>
             <SearchIcon
               name='clipboard-text-search'
               size={28}

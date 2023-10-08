@@ -5,7 +5,6 @@ import {
   Text,
   TouchableOpacity,
   Alert,
-  TouchableHighlight,
 } from "react-native";
 import { loginStyle } from "./style/PagesStyle";
 import { useFonts } from "expo-font";
@@ -14,13 +13,22 @@ import Icon2 from "react-native-vector-icons/Ionicons";
 import { StackActions } from "@react-navigation/native";
 import * as LocalAuthentication from "expo-local-authentication";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login = () => {
   const [isBiometricSupported, setIsBiometricSupported] = useState(false);
   const navigation = useNavigation();
 
-  const loginOrSignUp = () => {
-    navigation.dispatch(StackActions.replace("SignUp", {}));
+  const loginOrSignUp = async () => {
+    const getUserData: string | null = await AsyncStorage.getItem("user");
+    const parsedUserData = JSON.parse(getUserData!);
+    if (parsedUserData !== null) {
+      navigation.dispatch(StackActions.replace("PinAuth", {}));
+      return;
+    } else {
+      navigation.dispatch(StackActions.replace("SignUp", {}));
+      return;
+    }
   };
 
   useEffect(() => {

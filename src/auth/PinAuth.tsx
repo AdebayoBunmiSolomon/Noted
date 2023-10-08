@@ -5,20 +5,27 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
-  Alert,
 } from "react-native";
 import { pinAuthStyle } from "./Style";
-import Icon from "react-native-vector-icons/Ionicons";
 import PinIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import PasswordIcon from "react-native-vector-icons/FontAwesome5";
 import { StackActions } from "@react-navigation/native";
 import Header from "../components/Header";
+import ToastMessage from "../components/ToastMessage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const PinAuth = ({ navigation }: any) => {
+  //for access input properties
+  const ref_input1 = useRef<TextInput>(null);
   const ref_input2 = useRef<TextInput>(null);
   const ref_input3 = useRef<TextInput>(null);
   const ref_input4 = useRef<TextInput>(null);
-
+  //For toast message
+  const toastRef: any = useRef();
+  const [toastText, setToastText] = useState("");
+  const [toastDesc, setToastDesc] = useState("");
+  const [toastType, setToastType] = useState("success");
+  //for pin values
   const [pin, setPin] = useState({
     input1: "",
     input2: "",
@@ -26,38 +33,92 @@ const PinAuth = ({ navigation }: any) => {
     input4: "",
   });
 
+  const userPin: string = pin.input1 + pin.input2 + pin.input3 + pin.input4;
+
+  const validateUser = async () => {
+    const storedPin: string | null = await AsyncStorage.getItem("user");
+    const parsedStoredPin = JSON.parse(storedPin!);
+    if (parsedStoredPin !== null) {
+      if (userPin === parsedStoredPin) {
+        setToastText("Success");
+        setToastDesc("pin completed");
+        setToastType("success");
+        handleShowToast();
+        const timer = setTimeout(() => {
+          navigation.dispatch(
+            StackActions.replace("Tab", {
+              screen: "Home Page",
+            })
+          );
+          clearTimeout(timer);
+        }, 1000);
+        return null;
+      } else {
+        setToastText("Error");
+        setToastDesc("pin is incorrect");
+        setToastType("danger");
+        handleShowToast();
+        return null;
+      }
+    }
+  };
+
   const goBack = () => {
     navigation.dispatch(StackActions.replace("Login", {}));
   };
 
-  const signIn = () => {
-    if (
-      !pin.input1.trim() ||
-      !pin.input2.trim() ||
-      !pin.input3.trim() ||
-      !pin.input4.trim()
-    ) {
-      Alert.alert("Error", "please set up pin", [
-        {
-          text: "cancel",
-          onPress: () => {
-            console.log("cancel pressed");
-          },
-        },
-        {
-          text: "Ok",
-          onPress: () => {
-            console.log("Ok pressed");
-          },
-        },
-      ]);
-      return;
-    } else {
-      navigation.dispatch(StackActions.replace("Tab", { screen: "Home Page" }));
+  const handleShowToast = () => {
+    if (toastRef.current) {
+      toastRef.current.show();
     }
   };
+
+  const signIn = () => {
+    // console.log({ pin });
+    if (!pin.input1.trim()) {
+      ref_input1.current?.focus();
+      setToastText("Error");
+      setToastDesc("pin not completed");
+      setToastType("danger");
+      handleShowToast();
+      return null;
+    }
+    if (!pin.input2.trim()) {
+      ref_input2.current?.focus();
+      setToastText("Error");
+      setToastDesc("pin not completed");
+      setToastType("danger");
+      handleShowToast();
+      return null;
+    }
+    if (!pin.input3.trim()) {
+      ref_input3.current?.focus();
+      setToastText("Error");
+      setToastDesc("pin not completed");
+      setToastType("danger");
+      handleShowToast();
+      return null;
+    }
+    if (!pin.input4?.trim()) {
+      ref_input4.current?.focus();
+      setToastText("Error");
+      setToastDesc("pin not completed");
+      setToastType("danger");
+      handleShowToast();
+      return null;
+    } else {
+      validateUser();
+    }
+  };
+
   return (
     <SafeAreaView style={pinAuthStyle.container}>
+      <ToastMessage
+        text={toastText}
+        description={toastDesc}
+        type={toastType}
+        ref={toastRef}
+      />
       <Header headerText={"Pin Authentication"} goBack={goBack} />
 
       <View style={pinAuthStyle.formView}>
@@ -77,8 +138,16 @@ const PinAuth = ({ navigation }: any) => {
               returnKeyType={"next"}
               onSubmitEditing={() => ref_input2.current?.focus()}
               blurOnSubmit={false}
-              onChangeText={(pin1) => setPin({ ...pin, input1: pin1 })}
+              onChangeText={(pin1) => {
+                setPin({ ...pin, input1: pin1 });
+                if (!pin1.trim()) {
+                  //Nothing happens
+                } else {
+                  ref_input2.current?.focus();
+                }
+              }}
               value={pin.input1}
+              ref={ref_input1}
             />
           </View>
           <View>
@@ -92,7 +161,14 @@ const PinAuth = ({ navigation }: any) => {
               onSubmitEditing={() => ref_input3.current?.focus()}
               ref={ref_input2}
               blurOnSubmit={false}
-              onChangeText={(pin2) => setPin({ ...pin, input2: pin2 })}
+              onChangeText={(pin2) => {
+                setPin({ ...pin, input2: pin2 });
+                if (!pin2.trim()) {
+                  ref_input1.current?.focus();
+                } else {
+                  ref_input3.current?.focus();
+                }
+              }}
               value={pin.input2}
             />
           </View>
@@ -107,7 +183,14 @@ const PinAuth = ({ navigation }: any) => {
               onSubmitEditing={() => ref_input4.current?.focus()}
               ref={ref_input3}
               blurOnSubmit={false}
-              onChangeText={(pin3) => setPin({ ...pin, input3: pin3 })}
+              onChangeText={(pin3) => {
+                setPin({ ...pin, input3: pin3 });
+                if (!pin3.trim()) {
+                  ref_input2.current?.focus();
+                } else {
+                  ref_input4.current?.focus();
+                }
+              }}
               value={pin.input3}
             />
           </View>
@@ -124,7 +207,14 @@ const PinAuth = ({ navigation }: any) => {
               }}
               ref={ref_input4}
               value={pin.input4}
-              onChangeText={(pin4) => setPin({ ...pin, input4: pin4 })}
+              onChangeText={(pin4) => {
+                setPin({ ...pin, input4: pin4 });
+                if (!pin4.trim()) {
+                  ref_input3.current?.focus();
+                } else {
+                  //Nothing happens
+                }
+              }}
             />
           </View>
         </View>
