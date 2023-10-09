@@ -14,7 +14,7 @@ const NoteDetail = (props: any) => {
   const navigation: any = useNavigation();
   const note = props.route.params;
 
-  const { deleteNote } = useContext(NoteContext);
+  const { deleteNote, openEditNote } = useContext(NoteContext);
 
   const [loaded] = useFonts({
     "RobotoCondensed-Regular": require("../../assets/fonts/RobotoCondensed-Regular.ttf"),
@@ -73,7 +73,7 @@ const NoteDetail = (props: any) => {
         <CheckButton
           icon={<EditIcon name='edit' size={24} color={"white"} />}
           onPress={() => {
-            console.log("Edit pressed");
+            openEditNote(note);
           }}
         />
       </View>

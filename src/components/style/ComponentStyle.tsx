@@ -84,6 +84,48 @@ export const noteDetailsStyle = StyleSheet.create({
   },
 });
 
+export const editNoteStyle = StyleSheet.create({
+  container: {
+    marginTop: Platform.OS === "android" ? 50 : 60,
+    display: "flex",
+  },
+  titleTextView: {
+    width: screenWidth,
+    display: "flex",
+    flexDirection: "column",
+    gap: 5,
+    alignItems: "center",
+  },
+  titleText: {
+    borderBottomWidth: 2,
+    height: 40,
+    width: screenWidth - 20,
+    borderColor: "purple",
+    paddingLeft: 1,
+    fontFamily: "RobotoCondensed-Bold",
+    fontSize: Platform.OS === "ios" ? 20 : 15,
+  },
+  descText: {
+    borderBottomWidth: 2,
+    height: screenHeight / 4,
+    width: screenWidth - 20,
+    borderColor: "purple",
+    paddingLeft: 1,
+    fontFamily: "RobotoCondensed-Regular",
+    fontSize: Platform.OS === "ios" ? 20 : 15,
+    // textAlignVertical: Platform.OS === "android" ? "bottom" : "bottom",
+  },
+  roundButtonView: {
+    // backgroundColor: "crimson",
+    height: Platform.OS === "android" ? screenHeight / 2 : screenHeight / 2.4,
+    display: "flex",
+    alignItems: "flex-end",
+    gap: 15,
+    justifyContent: "flex-end",
+    paddingRight: 10,
+  },
+});
+
 export const addNoteStyle = StyleSheet.create({
   // styling goes here
   container: {

@@ -1,7 +1,7 @@
 import React, { createContext, useState } from "react";
 import { Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation } from "@react-navigation/native";
+import { StackActions, useNavigation } from "@react-navigation/native";
 
 export const NoteContext = createContext<any>(null);
 
@@ -11,6 +11,7 @@ export const NoteContextProvider = (props: any) => {
     title: "",
     desc: "",
   });
+  let [editNoteData, setEditNoteData] = useState<any>();
 
   const alertComponent = (
     title: string,
@@ -99,7 +100,7 @@ export const NoteContextProvider = (props: any) => {
     desc: string,
     noteType: string
   ) => {
-    // await AsyncStorage.clear();
+    // await AsyncStorage.removeItem(asyncKey);
     const getNoteData: string | null = await AsyncStorage.getItem(asyncKey);
     const parsedNoteData = JSON.parse(getNoteData!);
     if (parsedNoteData === null) {
@@ -181,11 +182,91 @@ export const NoteContextProvider = (props: any) => {
     }
   };
 
+  const openEditNote = (note: any) => {
+    navigation.navigate("EditNote");
+    setEditNoteData((editNoteData = note));
+    console.log(editNoteData);
+  };
+
+  const editNote = async (noteType: string) => {
+    if (!addNoteInput.title.trim()) {
+      alertComponent(
+        `${noteType} notes`,
+        "Title is empty",
+        "Ok",
+        () => {
+          console.log("Ok pressed");
+        },
+        "Cancel",
+        () => {
+          console.log("Cancel pressed");
+        }
+      );
+      return null;
+    }
+    if (!addNoteInput.desc.trim()) {
+      alertComponent(
+        `${noteType} notes`,
+        "Description is empty",
+        "Ok",
+        () => {
+          console.log("Ok pressed");
+        },
+        "Cancel",
+        () => {
+          console.log("Cancel pressed");
+        }
+      );
+      return null;
+    } else {
+      const getNoteData: string | null = await AsyncStorage.getItem(
+        noteType.toLowerCase()
+      );
+      const parsedNoteData = JSON.parse(getNoteData!);
+      if (parsedNoteData !== null) {
+        const editedNote = parsedNoteData.filter(
+          (items: any) => items.id !== editNoteData.noteDetail.id
+        );
+        editedNote.push({
+          id: Date.now(),
+          time: Date.now(),
+          title: addNoteInput.title.toLowerCase(),
+          desc: addNoteInput.desc,
+          type: noteType,
+        });
+        await AsyncStorage.setItem(
+          noteType.toLowerCase(),
+          JSON.stringify(editedNote)
+        );
+        alertComponent(
+          `${noteType} notes`,
+          "Note successfully edited",
+          "Ok",
+          () => {
+            console.log("Ok pressed");
+          },
+          "Cancel",
+          () => {
+            console.log("Cancel Pressed");
+          }
+        );
+        navigation.dispatch(
+          StackActions.replace("Tab", {
+            screen: "Home Page",
+          })
+        );
+      }
+    }
+  };
+
   const contextValue = {
     deleteNote,
     saveNote,
     setAddNoteInput,
     addNoteInput,
+    openEditNote,
+    editNoteData,
+    editNote,
   };
 
   return (

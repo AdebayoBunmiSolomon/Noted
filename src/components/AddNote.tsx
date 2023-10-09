@@ -1,12 +1,5 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import {
-  SafeAreaView,
-  View,
-  TextInput,
-  Text,
-  ScrollView,
-  Alert,
-} from "react-native";
+import React, { useContext, useEffect, useRef } from "react";
+import { SafeAreaView, View, TextInput, ScrollView, Alert } from "react-native";
 import { addNoteStyle } from "./style/ComponentStyle";
 import Header from "./Header";
 import { useNavigation } from "@react-navigation/native";
@@ -14,8 +7,8 @@ import { CheckButton } from "./RoundButton";
 import { CloseButton } from "./RoundButton";
 import Check from "react-native-vector-icons/Entypo";
 import Close from "react-native-vector-icons/Ionicons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NoteContext } from "../context/NoteContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface addNoteProps {
   headerText: string;
@@ -157,8 +150,8 @@ const AddNote: React.FunctionComponent<addNoteProps> = ({
 
   return (
     <SafeAreaView style={addNoteStyle.container}>
+      <Header headerText={headerText} goBack={goBack} />
       <ScrollView>
-        <Header headerText={headerText} goBack={goBack} />
         <View style={addNoteStyle.titleTextView}>
           <TextInput
             placeholder='Title'

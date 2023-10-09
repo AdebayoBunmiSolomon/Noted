@@ -7,7 +7,6 @@ import {
   TextInput,
 } from "react-native";
 import { signUpStyle } from "./style/PagesStyle";
-import Icon from "react-native-vector-icons/Ionicons";
 import PinIcon from "react-native-vector-icons/Entypo";
 import PasswordIcon from "react-native-vector-icons/FontAwesome5";
 import ToastMessage from "../../components/ToastMessage";
