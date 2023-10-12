@@ -9,12 +9,13 @@ import { CheckButton, CloseButton } from "./RoundButton";
 import DeleteIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import EditIcon from "react-native-vector-icons/Entypo";
 import { NoteContext } from "../context/NoteContext";
+import { themeSettings } from "../screens/tabViews/Settings/Theme";
 
 const NoteDetail = (props: any) => {
   const navigation: any = useNavigation();
   const note = props.route.params;
 
-  const { deleteNote, openEditNote } = useContext(NoteContext);
+  const { deleteNote, openEditNote, isDarkTheme } = useContext(NoteContext);
 
   const [loaded] = useFonts({
     "RobotoCondensed-Regular": require("../../assets/fonts/RobotoCondensed-Regular.ttf"),
@@ -47,12 +48,25 @@ const NoteDetail = (props: any) => {
   };
 
   return (
-    <>
-      <View style={noteDetailsStyle.container}>
-        <Header headerText={"Note Detail"} goBack={goBack} />
-      </View>
+    <View
+      style={[
+        noteDetailsStyle.container,
+        {
+          backgroundColor:
+            isDarkTheme === true
+              ? themeSettings.darkTheme.backgroundColor
+              : themeSettings.lightTheme.backgroundColor,
+        },
+      ]}>
+      <Header headerText={"Note Detail"} goBack={goBack} />
       <ScrollView contentContainerStyle={noteDetailsStyle.noteDetailView}>
-        <Text style={noteDetailsStyle.timeText}>
+        <Text
+          style={[
+            noteDetailsStyle.timeText,
+            {
+              color: isDarkTheme === true ? "whitesmoke" : "gray",
+            },
+          ]}>
           {note ? `Created at ${formatDate(note.noteDetail.time)}` : ""}
         </Text>
         <Text style={noteDetailsStyle.title}>
@@ -77,7 +91,7 @@ const NoteDetail = (props: any) => {
           }}
         />
       </View>
-    </>
+    </View>
   );
 };
 

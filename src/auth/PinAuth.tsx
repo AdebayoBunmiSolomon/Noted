@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import {
   SafeAreaView,
   View,
@@ -13,6 +13,8 @@ import { StackActions } from "@react-navigation/native";
 import Header from "../components/Header";
 import ToastMessage from "../components/ToastMessage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { NoteContext } from "../context/NoteContext";
+import { themeSettings } from "../screens/tabViews/Settings/Theme";
 
 const PinAuth = ({ navigation }: any) => {
   //for access input properties
@@ -32,6 +34,7 @@ const PinAuth = ({ navigation }: any) => {
     input3: "",
     input4: "",
   });
+  const { isDarkTheme } = useContext(NoteContext);
 
   const userPin: string = pin.input1 + pin.input2 + pin.input3 + pin.input4;
 
@@ -112,7 +115,16 @@ const PinAuth = ({ navigation }: any) => {
   };
 
   return (
-    <SafeAreaView style={pinAuthStyle.container}>
+    <SafeAreaView
+      style={[
+        pinAuthStyle.container,
+        {
+          backgroundColor:
+            isDarkTheme === true
+              ? themeSettings.darkTheme.backgroundColor
+              : themeSettings.lightTheme.backgroundColor,
+        },
+      ]}>
       <ToastMessage
         text={toastText}
         description={toastDesc}
@@ -130,7 +142,19 @@ const PinAuth = ({ navigation }: any) => {
           <View>
             <TextInput
               autoFocus={true}
-              style={pinAuthStyle.formTextInput}
+              style={[
+                pinAuthStyle.formTextInput,
+                {
+                  borderColor:
+                    isDarkTheme === true
+                      ? themeSettings.darkTheme.borderColor
+                      : themeSettings.lightTheme.borderColor,
+                  color:
+                    isDarkTheme === true
+                      ? themeSettings.darkTheme.textColor
+                      : themeSettings.lightTheme.textColor,
+                },
+              ]}
               keyboardType={"number-pad"}
               maxLength={1}
               selectTextOnFocus={false}
@@ -152,7 +176,19 @@ const PinAuth = ({ navigation }: any) => {
           </View>
           <View>
             <TextInput
-              style={pinAuthStyle.formTextInput}
+              style={[
+                pinAuthStyle.formTextInput,
+                {
+                  borderColor:
+                    isDarkTheme === true
+                      ? themeSettings.darkTheme.borderColor
+                      : themeSettings.lightTheme.borderColor,
+                  color:
+                    isDarkTheme === true
+                      ? themeSettings.darkTheme.textColor
+                      : themeSettings.lightTheme.textColor,
+                },
+              ]}
               keyboardType={"number-pad"}
               maxLength={1}
               selectTextOnFocus={false}
@@ -174,7 +210,19 @@ const PinAuth = ({ navigation }: any) => {
           </View>
           <View>
             <TextInput
-              style={pinAuthStyle.formTextInput}
+              style={[
+                pinAuthStyle.formTextInput,
+                {
+                  borderColor:
+                    isDarkTheme === true
+                      ? themeSettings.darkTheme.borderColor
+                      : themeSettings.lightTheme.borderColor,
+                  color:
+                    isDarkTheme === true
+                      ? themeSettings.darkTheme.textColor
+                      : themeSettings.lightTheme.textColor,
+                },
+              ]}
               keyboardType={"number-pad"}
               maxLength={1}
               selectTextOnFocus={false}
@@ -196,7 +244,19 @@ const PinAuth = ({ navigation }: any) => {
           </View>
           <View>
             <TextInput
-              style={pinAuthStyle.formTextInput}
+              style={[
+                pinAuthStyle.formTextInput,
+                {
+                  borderColor:
+                    isDarkTheme === true
+                      ? themeSettings.darkTheme.borderColor
+                      : themeSettings.lightTheme.borderColor,
+                  color:
+                    isDarkTheme === true
+                      ? themeSettings.darkTheme.textColor
+                      : themeSettings.lightTheme.textColor,
+                },
+              ]}
               keyboardType={"number-pad"}
               maxLength={1}
               selectTextOnFocus={false}

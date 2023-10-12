@@ -8,7 +8,8 @@ import { CloseButton } from "./RoundButton";
 import Check from "react-native-vector-icons/Entypo";
 import Close from "react-native-vector-icons/Ionicons";
 import { NoteContext } from "../context/NoteContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { themeSettings } from "../screens/tabViews/Settings/Theme";
+import { StatusBar } from "expo-status-bar";
 
 interface addNoteProps {
   headerText: string;
@@ -26,6 +27,7 @@ const AddNote: React.FunctionComponent<addNoteProps> = ({
   const ref_titleInput = useRef<TextInput>(null);
   const ref_descInput = useRef<TextInput>(null);
   const { saveNote, setAddNoteInput, addNoteInput } = useContext(NoteContext);
+  const { isDarkTheme } = useContext(NoteContext);
 
   useEffect(() => {
     ref_descInput.current?.blur();
@@ -149,51 +151,107 @@ const AddNote: React.FunctionComponent<addNoteProps> = ({
   };
 
   return (
-    <SafeAreaView style={addNoteStyle.container}>
-      <Header headerText={headerText} goBack={goBack} />
-      <ScrollView>
-        <View style={addNoteStyle.titleTextView}>
-          <TextInput
-            placeholder='Title'
-            style={addNoteStyle.titleText}
-            maxLength={50}
-            value={addNoteInput.title}
-            onChangeText={(inputTitle) => {
-              setAddNoteInput({ ...addNoteInput, title: inputTitle });
-            }}
-            ref={ref_titleInput}
-          />
-          <TextInput
-            placeholder='Description'
-            style={addNoteStyle.descText}
-            maxLength={300}
-            multiline={true}
-            // ref={ref_descInput}
-            textAlignVertical='bottom'
-            value={addNoteInput.desc}
-            onChangeText={(desc) => {
-              setAddNoteInput({ ...addNoteInput, desc: desc });
-            }}
-          />
-        </View>
+    <>
+      <StatusBar
+        backgroundColor={isDarkTheme === true ? "#1a1b1dfc" : "purple"}
+      />
+      <SafeAreaView
+        style={[
+          addNoteStyle.container,
+          {
+            backgroundColor:
+              isDarkTheme === true
+                ? themeSettings.darkTheme.backgroundColor
+                : themeSettings.lightTheme.backgroundColor,
+          },
+        ]}>
+        <Header headerText={headerText} goBack={goBack} />
+        <ScrollView>
+          <View style={addNoteStyle.titleTextView}>
+            <TextInput
+              placeholder='Title'
+              placeholderTextColor={
+                isDarkTheme === true
+                  ? themeSettings.darkTheme.textColor
+                  : themeSettings.lightTheme.textColor
+              }
+              style={[
+                addNoteStyle.titleText,
+                {
+                  borderColor:
+                    isDarkTheme === true
+                      ? themeSettings.darkTheme.borderColor2
+                      : themeSettings.lightTheme.borderColor2,
+                  opacity:
+                    isDarkTheme === true
+                      ? themeSettings.darkTheme.borderOpacity
+                      : themeSettings.lightTheme.borderOpacity,
+                  color:
+                    isDarkTheme === true
+                      ? themeSettings.darkTheme.textColor
+                      : themeSettings.lightTheme.textColor,
+                },
+              ]}
+              maxLength={50}
+              value={addNoteInput.title}
+              onChangeText={(inputTitle) => {
+                setAddNoteInput({ ...addNoteInput, title: inputTitle });
+              }}
+              ref={ref_titleInput}
+            />
+            <TextInput
+              placeholder='Description'
+              placeholderTextColor={
+                isDarkTheme === true
+                  ? themeSettings.darkTheme.textColor
+                  : themeSettings.lightTheme.textColor
+              }
+              style={[
+                addNoteStyle.descText,
+                {
+                  borderColor:
+                    isDarkTheme === true
+                      ? themeSettings.darkTheme.borderColor2
+                      : themeSettings.lightTheme.borderColor2,
+                  opacity:
+                    isDarkTheme === true
+                      ? themeSettings.darkTheme.borderOpacity
+                      : themeSettings.lightTheme.borderOpacity,
+                  color:
+                    isDarkTheme === true
+                      ? themeSettings.darkTheme.textColor
+                      : themeSettings.lightTheme.textColor,
+                },
+              ]}
+              maxLength={300}
+              multiline={true}
+              // ref={ref_descInput}
+              textAlignVertical='bottom'
+              value={addNoteInput.desc}
+              onChangeText={(desc) => {
+                setAddNoteInput({ ...addNoteInput, desc: desc });
+              }}
+            />
+          </View>
 
-        <View style={addNoteStyle.roundButtonView}>
-          <CheckButton
-            icon={<Check name='check' size={20} color={"white"} />}
-            onPress={() => {
-              onclickCreate();
-              addNote();
-            }}
-          />
-          <CloseButton
-            icon={<Close name='close' size={24} color={"white"} />}
-            onPress={() => {
-              console.log("Close pressed");
-            }}
-          />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+          <View style={addNoteStyle.roundButtonView}>
+            <CheckButton
+              icon={<Check name='check' size={20} color={"white"} />}
+              onPress={() => {
+                onclickCreate();
+                addNote();
+              }}
+            />
+            <CloseButton
+              icon={<Close name='close' size={24} color={"white"} />}
+              onPress={() => {
+                console.log("Close pressed");
+              }}
+            />
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </>
   );
 };
 

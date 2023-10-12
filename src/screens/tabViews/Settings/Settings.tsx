@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
 import {
   View,
   Text,
@@ -11,17 +11,14 @@ import { style } from "./Styles";
 import Header from "../../../components/Header";
 import { StackActions, useNavigation } from "@react-navigation/native";
 import ToastMessage from "../../../components/ToastMessage";
-import PasswordIcon from "react-native-vector-icons/FontAwesome5";
 import PinIcon from "react-native-vector-icons/Entypo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { NoteContext } from "../../../context/NoteContext";
+import { themeSettings } from "./Theme";
 
 const Settings = () => {
   const navigation: any = useNavigation();
-  let [isEnabled, setIsEnabled] = useState<boolean>(false);
-
-  const toggleSwitch = () => {
-    setIsEnabled((isEnabled = !isEnabled));
-  };
+  const { isDarkTheme, changeTheme } = useContext(NoteContext);
 
   //for access input properties
   const ref_input1 = useRef<TextInput>(null);
@@ -93,7 +90,7 @@ const Settings = () => {
       handleShowToast();
       changeUserPin();
       const timer = setTimeout(() => {
-        navigation.dispatch(StackActions.replace("PinAuth", {}));
+        navigation.navigate("PinAuth");
         clearTimeout(timer);
       }, 1000);
     }
@@ -103,7 +100,16 @@ const Settings = () => {
     navigation.navigate("Home Page");
   };
   return (
-    <SafeAreaView style={style.container}>
+    <SafeAreaView
+      style={[
+        style.container,
+        {
+          backgroundColor:
+            isDarkTheme === true
+              ? themeSettings.darkTheme.backgroundColor
+              : themeSettings.lightTheme.backgroundColor,
+        },
+      ]}>
       <ToastMessage
         text={toastText}
         description={toastDesc}
@@ -113,7 +119,22 @@ const Settings = () => {
       <Header headerText={"Settings"} goBack={goBack} />
 
       <View style={style.formView}>
-        <Text style={style.topText}>Change pin here</Text>
+        <Text
+          style={[
+            style.topText,
+            {
+              color:
+                isDarkTheme === true
+                  ? themeSettings.darkTheme.textPrimaryColor
+                  : themeSettings.lightTheme.textColor,
+              opacity:
+                isDarkTheme === true
+                  ? themeSettings.darkTheme.textOpacity
+                  : themeSettings.lightTheme.textOpacity,
+            },
+          ]}>
+          Change pin here
+        </Text>
         {/* <View>
           <PasswordIcon name='user-lock' size={60} color={"purple"} />
         </View> */}
@@ -122,7 +143,19 @@ const Settings = () => {
           <View>
             <TextInput
               autoFocus={true}
-              style={style.formTextInput}
+              style={[
+                style.formTextInput,
+                {
+                  borderColor:
+                    isDarkTheme === true
+                      ? themeSettings.darkTheme.borderColor
+                      : themeSettings.lightTheme.borderColor,
+                  color:
+                    isDarkTheme === true
+                      ? themeSettings.darkTheme.textColor
+                      : themeSettings.lightTheme.textColor,
+                },
+              ]}
               keyboardType={"number-pad"}
               maxLength={1}
               selectTextOnFocus={false}
@@ -144,7 +177,19 @@ const Settings = () => {
           </View>
           <View>
             <TextInput
-              style={style.formTextInput}
+              style={[
+                style.formTextInput,
+                {
+                  borderColor:
+                    isDarkTheme === true
+                      ? themeSettings.darkTheme.borderColor
+                      : themeSettings.lightTheme.borderColor,
+                  color:
+                    isDarkTheme === true
+                      ? themeSettings.darkTheme.textColor
+                      : themeSettings.lightTheme.textColor,
+                },
+              ]}
               keyboardType={"number-pad"}
               maxLength={1}
               selectTextOnFocus={false}
@@ -166,7 +211,19 @@ const Settings = () => {
           </View>
           <View>
             <TextInput
-              style={style.formTextInput}
+              style={[
+                style.formTextInput,
+                {
+                  borderColor:
+                    isDarkTheme === true
+                      ? themeSettings.darkTheme.borderColor
+                      : themeSettings.lightTheme.borderColor,
+                  color:
+                    isDarkTheme === true
+                      ? themeSettings.darkTheme.textColor
+                      : themeSettings.lightTheme.textColor,
+                },
+              ]}
               keyboardType={"number-pad"}
               maxLength={1}
               selectTextOnFocus={false}
@@ -188,7 +245,19 @@ const Settings = () => {
           </View>
           <View>
             <TextInput
-              style={style.formTextInput}
+              style={[
+                style.formTextInput,
+                {
+                  borderColor:
+                    isDarkTheme === true
+                      ? themeSettings.darkTheme.borderColor
+                      : themeSettings.lightTheme.borderColor,
+                  color:
+                    isDarkTheme === true
+                      ? themeSettings.darkTheme.textColor
+                      : themeSettings.lightTheme.textColor,
+                },
+              ]}
               keyboardType={"number-pad"}
               maxLength={1}
               selectTextOnFocus={false}
@@ -223,13 +292,28 @@ const Settings = () => {
           </TouchableOpacity>
         </View>
         <View style={style.switchView}>
-          <Text style={style.darkModeText}>Use Dark-mode</Text>
+          <Text
+            style={[
+              style.darkModeText,
+              {
+                color:
+                  isDarkTheme === true
+                    ? themeSettings.darkTheme.textPrimaryColor
+                    : themeSettings.lightTheme.textColor,
+                opacity:
+                  isDarkTheme === true
+                    ? themeSettings.darkTheme.textOpacity
+                    : themeSettings.lightTheme.textOpacity,
+              },
+            ]}>
+            Use Dark-mode
+          </Text>
           <Switch
             trackColor={{ false: "#4b404063", true: "purple" }}
-            thumbColor={isEnabled ? "purple" : "gray"}
+            thumbColor={isDarkTheme ? "purple" : "gray"}
             ios_backgroundColor='#3e3e3e'
-            onValueChange={toggleSwitch}
-            value={isEnabled}
+            onValueChange={changeTheme}
+            value={isDarkTheme}
           />
         </View>
       </View>

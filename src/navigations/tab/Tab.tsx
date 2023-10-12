@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomePage from "../../screens/tabViews/HomePage/HomePage";
 import ReligionNotes from "../../screens/tabViews/Religion/ReligionNotes";
@@ -6,14 +6,19 @@ import HomeNotes from "../../screens/tabViews/Home/HomeNotes";
 import WorkNotes from "../../screens/tabViews/Work/WorkNotes";
 import Settings from "../../screens/tabViews/Settings/Settings";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { NoteContext } from "../../context/NoteContext";
+import { themeSettings } from "../../screens/tabViews/Settings/Theme";
 
 const Tabs = createBottomTabNavigator();
 
 const Tab = () => {
+  const { isDarkMode } = useContext(NoteContext);
   return (
     <Tabs.Navigator
       initialRouteName='Home Page'
+      backBehavior={"initialRoute"}
       screenOptions={({ route }: any) => ({
+        tabBarStyle: {},
         tabBarIcon: ({ focused, color, size }) => {
           let iconName: any;
 

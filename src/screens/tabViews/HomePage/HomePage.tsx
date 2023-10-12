@@ -1,5 +1,5 @@
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -24,12 +24,15 @@ import {
 import SearchNote from "../../../components/SearchNote";
 import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { NoteContext } from "../../../context/NoteContext";
+import { themeSettings } from "../Settings/Theme";
 
 const HomePage = () => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   let [searchInput, setSearchInput] = useState("");
   let [searchResult, setSearchResult] = useState<any>();
   let [isLoading, setIsLoading] = useState<boolean>(true);
+  const { isDarkTheme } = useContext(NoteContext);
 
   const date = new Date();
   const curHrs: number = date.getHours();
@@ -57,7 +60,7 @@ const HomePage = () => {
     getGreeting();
   });
 
-  const snapPoints = ["25%"];
+  const snapPoints = ["25%", "50%"];
 
   const [loaded] = useFonts({
     "RobotoCondensed-Regular": require("../../../../assets/fonts/RobotoCondensed-Regular.ttf"),
@@ -111,7 +114,10 @@ const HomePage = () => {
             backgroundStyle={{
               borderRadius: 30,
               overflow: "hidden",
-              backgroundColor: "white",
+              backgroundColor:
+                isDarkTheme === true
+                  ? themeSettings.darkTheme.backgroundColor
+                  : "white",
             }}
             onDismiss={() => {
               // bottomSheetModalRef.current?.close();
@@ -119,7 +125,13 @@ const HomePage = () => {
             }}>
             <View style={bottomSheetModalStyle.bottomSheetView}>
               <View>
-                <Text style={bottomSheetModalStyle.headerText}>
+                <Text
+                  style={[
+                    bottomSheetModalStyle.headerText,
+                    {
+                      color: isDarkTheme === true ? "white" : "black",
+                    },
+                  ]}>
                   Select note
                 </Text>
               </View>
@@ -134,7 +146,20 @@ const HomePage = () => {
                     setSelectionState((selectionState = isSelection.home));
                     console.log(selectionState);
                   }}>
-                  <Text style={bottomSheetModalStyle.selectButtonText}>
+                  <Text
+                    style={[
+                      bottomSheetModalStyle.selectButtonText,
+                      {
+                        color:
+                          isDarkTheme === true
+                            ? themeSettings.darkTheme.textColor
+                            : "gray",
+                        opacity:
+                          isDarkTheme === true
+                            ? themeSettings.darkTheme.textOpacity
+                            : themeSettings.lightTheme.textOpacity,
+                      },
+                    ]}>
                     Home notes
                   </Text>
                   {selectionState === "home" ? (
@@ -153,7 +178,20 @@ const HomePage = () => {
                     setSelectionState((selectionState = isSelection.work));
                     console.log(selectionState);
                   }}>
-                  <Text style={bottomSheetModalStyle.selectButtonText}>
+                  <Text
+                    style={[
+                      bottomSheetModalStyle.selectButtonText,
+                      {
+                        color:
+                          isDarkTheme === true
+                            ? themeSettings.darkTheme.textColor
+                            : "gray",
+                        opacity:
+                          isDarkTheme === true
+                            ? themeSettings.darkTheme.textOpacity
+                            : themeSettings.lightTheme.textOpacity,
+                      },
+                    ]}>
                     Work notes
                   </Text>
                   {selectionState === "work" ? (
@@ -172,7 +210,20 @@ const HomePage = () => {
                     setSelectionState((selectionState = isSelection.religion));
                     console.log(selectionState);
                   }}>
-                  <Text style={bottomSheetModalStyle.selectButtonText}>
+                  <Text
+                    style={[
+                      bottomSheetModalStyle.selectButtonText,
+                      {
+                        color:
+                          isDarkTheme === true
+                            ? themeSettings.darkTheme.textColor
+                            : "gray",
+                        opacity:
+                          isDarkTheme === true
+                            ? themeSettings.darkTheme.textOpacity
+                            : themeSettings.lightTheme.textOpacity,
+                      },
+                    ]}>
                     Religion notes
                   </Text>
                   {selectionState === "religion" ? (
@@ -193,7 +244,22 @@ const HomePage = () => {
     return (
       <>
         <View style={styles.quickAccessView}>
-          <Text style={styles.quickAccessText}>Quick Access</Text>
+          <Text
+            style={[
+              styles.quickAccessText,
+              {
+                color:
+                  isDarkTheme === true
+                    ? themeSettings.darkTheme.textColor
+                    : themeSettings.lightTheme.textColor,
+                opacity:
+                  isDarkTheme === true
+                    ? themeSettings.darkTheme.textOpacity
+                    : themeSettings.lightTheme.textOpacity,
+              },
+            ]}>
+            Quick Access
+          </Text>
           <View>
             <ButtonCard />
           </View>
@@ -242,19 +308,64 @@ const HomePage = () => {
 
   return (
     <>
-      <StatusBar backgroundColor='purple' />
-      <GestureHandlerRootView style={[styles.container, {}]}>
+      <StatusBar
+        backgroundColor={isDarkTheme === true ? "#1a1b1dfc" : "purple"}
+      />
+      <GestureHandlerRootView
+        style={[
+          styles.container,
+          {
+            backgroundColor:
+              isDarkTheme === true
+                ? themeSettings.darkTheme.backgroundColor
+                : themeSettings.lightTheme.backgroundColor,
+          },
+        ]}>
         <View style={styles.manIconView}>
           <Image source={setOfIcons.manIcon} style={styles.manIcon} />
           <View style={styles.manIconTextView}>
             <Text style={styles.manIconHelloText}>Hello,</Text>
-            <Text style={styles.manIconGreetingText}>{greeting}</Text>
+            <Text
+              style={[
+                styles.manIconGreetingText,
+                {
+                  color: isDarkTheme
+                    ? themeSettings.darkTheme.textColor
+                    : "gray",
+                  opacity: isDarkTheme
+                    ? themeSettings.darkTheme.textOpacity
+                    : themeSettings.lightTheme.textOpacity,
+                },
+              ]}>
+              {greeting}
+            </Text>
           </View>
         </View>
         <View style={styles.searchView}>
           <TextInput
-            style={styles.searchInput}
+            style={[
+              styles.searchInput,
+              {
+                borderColor:
+                  isDarkTheme === true
+                    ? themeSettings.darkTheme.borderColor2
+                    : themeSettings.lightTheme.borderColor2,
+                opacity:
+                  isDarkTheme === true
+                    ? themeSettings.darkTheme.borderOpacity
+                    : themeSettings.lightTheme.borderOpacity,
+                color:
+                  isDarkTheme === true
+                    ? themeSettings.darkTheme.textColor
+                    : themeSettings.lightTheme.textColor,
+              },
+            ]}
             placeholder='search by title'
+            placeholderTextColor={
+              isDarkTheme === true
+                ? themeSettings.darkTheme.textColor
+                : themeSettings.lightTheme.textColor
+            }
             value={searchInput}
             onChangeText={(input) => {
               setSearchInput((searchInput = input));

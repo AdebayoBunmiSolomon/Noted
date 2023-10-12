@@ -47,7 +47,6 @@ export const style = StyleSheet.create({
     width: 40,
     borderRadius: 10,
     textAlign: "center",
-    color: "black",
     fontSize: Platform.OS === "android" ? 20 : 25,
     fontWeight: "bold",
   },

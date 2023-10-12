@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -12,13 +12,15 @@ import {
 import { carouselStyle } from "./style/ComponentStyle";
 import { StackActions } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { NoteContext } from "../context/NoteContext";
+import { themeSettings } from "../screens/tabViews/Settings/Theme";
 
 const Carousel = ({ navigation }: any) => {
   const screenWidth = Dimensions.get("window").width;
   const screenHeight = Dimensions.get("window").height;
   const [activeIndex, setActiveIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
+  const { isDarkTheme } = useContext(NoteContext);
 
   // const removeAllAsyncStorageItem = async () => {
   //   await AsyncStorage.clear();
@@ -145,7 +147,16 @@ const Carousel = ({ navigation }: any) => {
   };
 
   return (
-    <View style={carouselStyle.container}>
+    <View
+      style={[
+        carouselStyle.container,
+        {
+          backgroundColor:
+            isDarkTheme === true
+              ? themeSettings.darkTheme.backgroundColor
+              : themeSettings.lightTheme.backgroundColor,
+        },
+      ]}>
       <View style={carouselStyle.imageFlatListView}>
         <FlatList
           data={carouselData}

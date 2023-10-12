@@ -53,8 +53,9 @@ export const carouselStyle = StyleSheet.create({
 
 export const noteDetailsStyle = StyleSheet.create({
   container: {
-    marginTop: Platform.OS === "android" ? 50 : 60,
+    paddingTop: Platform.OS === "android" ? 50 : 60,
     display: "flex",
+    flex: 1,
   },
   noteDetailView: {
     // flex: 1,
@@ -129,8 +130,9 @@ export const editNoteStyle = StyleSheet.create({
 export const addNoteStyle = StyleSheet.create({
   // styling goes here
   container: {
-    marginTop: Platform.OS === "android" ? 50 : 60,
+    paddingTop: Platform.OS === "android" ? 50 : 60,
     display: "flex",
+    flex: 1,
   },
   titleTextView: {
     width: screenWidth,
@@ -143,7 +145,6 @@ export const addNoteStyle = StyleSheet.create({
     borderBottomWidth: 2,
     height: 40,
     width: screenWidth - 20,
-    borderColor: "purple",
     paddingLeft: 1,
     fontFamily: "RobotoCondensed-Bold",
     fontSize: Platform.OS === "ios" ? 20 : 15,
@@ -152,7 +153,6 @@ export const addNoteStyle = StyleSheet.create({
     borderBottomWidth: 2,
     height: screenHeight / 4,
     width: screenWidth - 20,
-    borderColor: "purple",
     paddingLeft: 1,
     fontFamily: "RobotoCondensed-Regular",
     fontSize: Platform.OS === "ios" ? 20 : 15,
@@ -179,7 +179,6 @@ export const searchNoteStyle = StyleSheet.create({
     width: "100%",
   },
   flatListButton: {
-    backgroundColor: "white",
     paddingLeft: 7,
     paddingTop: 7,
     height: Platform.OS === "android" ? 100 : 105,
@@ -278,7 +277,6 @@ export const buttonCard = StyleSheet.create({
     alignItems: "center",
     height: Platform.OS === "android" ? 170 : 175,
     width: Platform.OS === "android" ? 150 : 160,
-    backgroundColor: "white",
     borderRadius: 10,
     marginVertical: 20,
   },
@@ -320,7 +318,6 @@ export const headerStyle = StyleSheet.create({
   },
   headerText: {
     paddingRight: screenWidth / 6,
-    color: "black",
     fontSize: Platform.OS === "android" ? 20 : 25,
     fontFamily: "RobotoCondensed-Bold",
   },

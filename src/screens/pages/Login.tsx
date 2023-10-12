@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   SafeAreaView,
   View,
@@ -14,10 +14,13 @@ import { StackActions } from "@react-navigation/native";
 import * as LocalAuthentication from "expo-local-authentication";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { NoteContext } from "../../context/NoteContext";
+import { themeSettings } from "../tabViews/Settings/Theme";
 
 const Login = () => {
   const [isBiometricSupported, setIsBiometricSupported] = useState(false);
   const navigation = useNavigation();
+  const { isDarkTheme } = useContext(NoteContext);
 
   const loginOrSignUp = async () => {
     const getUserData: string | null = await AsyncStorage.getItem("user");
@@ -113,7 +116,16 @@ const Login = () => {
   };
 
   return (
-    <SafeAreaView style={loginStyle.container}>
+    <SafeAreaView
+      style={[
+        loginStyle.container,
+        {
+          backgroundColor:
+            isDarkTheme === true
+              ? themeSettings.darkTheme.backgroundColor
+              : themeSettings.lightTheme.backgroundColor,
+        },
+      ]}>
       <View style={loginStyle.loginButtonView}>
         <TouchableOpacity
           style={loginStyle.loginButton}

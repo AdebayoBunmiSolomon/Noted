@@ -29,7 +29,6 @@ export const styles = StyleSheet.create({
   manIconGreetingText: {
     fontFamily: "RobotoCondensed-Regular",
     fontSize: Platform.OS === "android" ? 20 : 23,
-    color: "gray",
   },
   searchView: {
     width: screenWidth,
@@ -42,7 +41,6 @@ export const styles = StyleSheet.create({
   searchInput: {
     width: screenWidth - 110,
     borderWidth: 0.5,
-    borderColor: "gray",
     borderBottomLeftRadius: 10,
     borderTopLeftRadius: 10,
     height: 50,
@@ -78,7 +76,6 @@ export const styles = StyleSheet.create({
     fontFamily: "RobotoCondensed-Bold",
     fontSize: Platform.OS === "android" ? 15 : 18,
     paddingLeft: Platform.OS === "android" ? screenWidth / 27 : 20,
-    color: "black",
   },
 });
 
@@ -106,6 +103,5 @@ export const bottomSheetModalStyle = StyleSheet.create({
   selectButtonText: {
     fontSize: Platform.OS === "android" ? 17 : 22,
     fontFamily: "RobotoCondensed-Regular",
-    color: "gray",
   },
 });

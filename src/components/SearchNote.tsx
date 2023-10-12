@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { searchNoteStyle } from "./style/ComponentStyle";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFonts } from "expo-font";
 import { useNavigation } from "@react-navigation/native";
+import { NoteContext } from "../context/NoteContext";
+import { themeSettings } from "../screens/tabViews/Settings/Theme";
 
 interface SearchNoteProps {
   noteType: string;
@@ -13,6 +15,7 @@ const SearchNote: React.FunctionComponent<SearchNoteProps> = ({ noteType }) => {
   let [noteData, setNoteData] = useState<any>();
   const noteTypeText = noteType;
   const navigation: any = useNavigation();
+  const { isDarkTheme } = useContext(NoteContext);
 
   const loadNoteData = async () => {
     if (noteTypeText === "religion") {
@@ -66,7 +69,17 @@ const SearchNote: React.FunctionComponent<SearchNoteProps> = ({ noteType }) => {
 
   return (
     <View style={searchNoteStyle.container}>
-      <Text>
+      <Text
+        style={{
+          color:
+            isDarkTheme === true
+              ? themeSettings.darkTheme.textColor
+              : themeSettings.lightTheme.textColor,
+          opacity:
+            isDarkTheme === true
+              ? themeSettings.darkTheme.textOpacity
+              : themeSettings.lightTheme.textOpacity,
+        }}>
         You have {noteData ? noteData.length : "0"} {noteType}{" "}
         {noteData?.length >= 0 && noteData?.length <= 1 ? "note" : "notes"}
       </Text>
@@ -82,7 +95,15 @@ const SearchNote: React.FunctionComponent<SearchNoteProps> = ({ noteType }) => {
         renderItem={({ item }) => (
           <>
             <TouchableOpacity
-              style={searchNoteStyle.flatListButton}
+              style={[
+                searchNoteStyle.flatListButton,
+                {
+                  backgroundColor:
+                    isDarkTheme === true
+                      ? themeSettings.darkTheme.cardBgColor
+                      : themeSettings.lightTheme.cardBgColor,
+                },
+              ]}
               onPress={() => {
                 openNote(item);
               }}>

@@ -6,7 +6,7 @@ const screenHeight = Dimensions.get("window").height;
 export const pinAuthStyle = StyleSheet.create({
   //Styling goes here...
   container: {
-    marginTop: Platform.OS === "android" ? 50 : 0,
+    paddingTop: Platform.OS === "android" ? 50 : 0,
     flex: 1,
   },
   header: {
@@ -57,12 +57,10 @@ export const pinAuthStyle = StyleSheet.create({
   },
   formTextInput: {
     borderWidth: 1.2,
-    borderColor: "black",
     height: 40,
     width: 40,
     borderRadius: 10,
     textAlign: "center",
-    color: "black",
     fontSize: Platform.OS === "android" ? 20 : 25,
     fontWeight: "bold",
   },

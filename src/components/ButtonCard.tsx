@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FlatList, Text, TouchableOpacity, View, Image } from "react-native";
 import { buttonCard } from "./style/ComponentStyle";
 import { useNavigation } from "@react-navigation/native";
+import { NoteContext } from "../context/NoteContext";
+import { themeSettings } from "../screens/tabViews/Settings/Theme";
 
 const buttonList = [
   {
@@ -28,6 +30,7 @@ const buttonList = [
 
 const ButtonCard = () => {
   const navigation: any = useNavigation();
+  const { isDarkTheme } = useContext(NoteContext);
 
   return (
     <View style={buttonCard.buttonMainView}>
@@ -38,7 +41,15 @@ const ButtonCard = () => {
         renderItem={({ item }) => (
           <View style={buttonCard.buttonView}>
             <TouchableOpacity
-              style={buttonCard.button}
+              style={[
+                buttonCard.button,
+                {
+                  backgroundColor:
+                    isDarkTheme === true
+                      ? themeSettings.darkTheme.cardBgColor
+                      : themeSettings.lightTheme.cardBgColor,
+                },
+              ]}
               onPress={() => {
                 {
                   navigation.navigate(String(item.navigation));

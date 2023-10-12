@@ -12,6 +12,7 @@ export const NoteContextProvider = (props: any) => {
     desc: "",
   });
   let [editNoteData, setEditNoteData] = useState<any>();
+  let [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
 
   const alertComponent = (
     title: string,
@@ -259,6 +260,10 @@ export const NoteContextProvider = (props: any) => {
     }
   };
 
+  const changeTheme = () => {
+    setIsDarkTheme((isDarkTheme = !isDarkTheme));
+  };
+
   const contextValue = {
     deleteNote,
     saveNote,
@@ -267,6 +272,8 @@ export const NoteContextProvider = (props: any) => {
     openEditNote,
     editNoteData,
     editNote,
+    changeTheme,
+    isDarkTheme,
   };
 
   return (
