@@ -111,7 +111,7 @@ export const NoteContextProvider = (props: any) => {
           {
             id: id,
             time: time,
-            title: title,
+            title: title.replace(/^\s+|\s+$/gm, ""),
             desc: desc,
             type: noteType,
           },
@@ -231,7 +231,7 @@ export const NoteContextProvider = (props: any) => {
         editedNote.push({
           id: Date.now(),
           time: Date.now(),
-          title: addNoteInput.title.toLowerCase(),
+          title: addNoteInput.title.replace(/^\s+|\s+$/gm, ""),
           desc: addNoteInput.desc,
           type: noteType,
         });

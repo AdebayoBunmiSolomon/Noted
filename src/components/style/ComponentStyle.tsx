@@ -87,8 +87,9 @@ export const noteDetailsStyle = StyleSheet.create({
 
 export const editNoteStyle = StyleSheet.create({
   container: {
-    marginTop: Platform.OS === "android" ? 50 : 60,
+    paddingTop: Platform.OS === "android" ? 50 : 60,
     display: "flex",
+    flex: 1,
   },
   titleTextView: {
     width: screenWidth,
@@ -101,7 +102,6 @@ export const editNoteStyle = StyleSheet.create({
     borderBottomWidth: 2,
     height: 40,
     width: screenWidth - 20,
-    borderColor: "purple",
     paddingLeft: 1,
     fontFamily: "RobotoCondensed-Bold",
     fontSize: Platform.OS === "ios" ? 20 : 15,

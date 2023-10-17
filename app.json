@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "MyNotes",
-    "slug": "MyNotes",
+    "name": "Notee",
+    "slug": "Notee",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,21 +11,30 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
         "NSFaceIDUsageDescription": "This app may use FaceID and TouchID to verify"
-      }
+      },
+      "bundleIdentifier": "com.adebunmy.Notee"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "backgroundColor": "#800080"
+      },
+      "package": "com.adebunmy.Notee"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "19e25708-ac29-408a-9711-32cc012247bc"
+      }
     }
   }
 }

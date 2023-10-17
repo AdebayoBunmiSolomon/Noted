@@ -6,10 +6,11 @@ import { StackActions, useNavigation } from "@react-navigation/native";
 import { NoteContext } from "../context/NoteContext";
 import { CheckButton } from "./RoundButton";
 import Check from "react-native-vector-icons/Entypo";
+import { themeSettings } from "../screens/tabViews/Settings/Theme";
 
 const EditNote = () => {
   const navigation: any = useNavigation();
-  const { editNoteData, setAddNoteInput, addNoteInput, editNote } =
+  const { editNoteData, setAddNoteInput, addNoteInput, editNote, isDarkTheme } =
     useContext(NoteContext);
 
   const goBack = () => {
@@ -29,13 +30,43 @@ const EditNote = () => {
   }, [editNoteData]);
 
   return (
-    <SafeAreaView style={editNoteStyle.container}>
+    <SafeAreaView
+      style={[
+        editNoteStyle.container,
+        {
+          backgroundColor:
+            isDarkTheme === true
+              ? themeSettings.darkTheme.backgroundColor
+              : themeSettings.lightTheme.backgroundColor,
+        },
+      ]}>
       <Header headerText={"Edit note details"} goBack={goBack} />
       <ScrollView>
         <View style={editNoteStyle.titleTextView}>
           <TextInput
             placeholder='Title'
-            style={editNoteStyle.titleText}
+            placeholderTextColor={
+              isDarkTheme === true
+                ? themeSettings.darkTheme.textColor
+                : themeSettings.lightTheme.textColor
+            }
+            style={[
+              editNoteStyle.titleText,
+              {
+                borderColor:
+                  isDarkTheme === true
+                    ? themeSettings.darkTheme.borderColor2
+                    : themeSettings.lightTheme.borderColor2,
+                opacity:
+                  isDarkTheme === true
+                    ? themeSettings.darkTheme.borderOpacity
+                    : themeSettings.lightTheme.borderOpacity,
+                color:
+                  isDarkTheme === true
+                    ? themeSettings.darkTheme.textColor
+                    : themeSettings.lightTheme.textColor,
+              },
+            ]}
             maxLength={50}
             value={addNoteInput.title}
             onChangeText={(inputTitle) => {
@@ -44,7 +75,28 @@ const EditNote = () => {
           />
           <TextInput
             placeholder='Description'
-            style={editNoteStyle.descText}
+            placeholderTextColor={
+              isDarkTheme === true
+                ? themeSettings.darkTheme.textColor
+                : themeSettings.lightTheme.textColor
+            }
+            style={[
+              editNoteStyle.descText,
+              {
+                borderColor:
+                  isDarkTheme === true
+                    ? themeSettings.darkTheme.borderColor2
+                    : themeSettings.lightTheme.borderColor2,
+                opacity:
+                  isDarkTheme === true
+                    ? themeSettings.darkTheme.borderOpacity
+                    : themeSettings.lightTheme.borderOpacity,
+                color:
+                  isDarkTheme === true
+                    ? themeSettings.darkTheme.textColor
+                    : themeSettings.lightTheme.textColor,
+              },
+            ]}
             maxLength={300}
             multiline={true}
             textAlignVertical='bottom'
