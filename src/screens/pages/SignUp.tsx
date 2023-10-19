@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import {
   SafeAreaView,
   View,
@@ -13,12 +13,16 @@ import ToastMessage from "../../components/ToastMessage";
 import { StackActions } from "@react-navigation/native";
 import Header from "../../components/Header";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { StatusBar } from "expo-status-bar";
+import { NoteContext } from "../../context/NoteContext";
 
 interface SignUpProps {
   navigation: any;
 }
 
 const SignUp: React.FunctionComponent<SignUpProps> = ({ navigation }) => {
+  const { isDarkTheme } = useContext(NoteContext);
+
   //for access input properties
   const ref_input1 = useRef<TextInput>(null);
   const ref_input2 = useRef<TextInput>(null);
@@ -107,126 +111,131 @@ const SignUp: React.FunctionComponent<SignUpProps> = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={signUpStyle.container}>
-      <ToastMessage
-        text={toastText}
-        description={toastDesc}
-        type={toastType}
-        ref={toastRef}
+    <>
+      <StatusBar
+        backgroundColor={isDarkTheme === true ? "#1a1b1dfc" : "purple"}
       />
-      <Header headerText={"Sign up"} goBack={goBack} />
+      <SafeAreaView style={signUpStyle.container}>
+        <ToastMessage
+          text={toastText}
+          description={toastDesc}
+          type={toastType}
+          ref={toastRef}
+        />
+        <Header headerText={"Sign up"} goBack={goBack} />
 
-      <View style={signUpStyle.formView}>
-        <View>
-          <PasswordIcon name='user-lock' size={60} color={"purple"} />
-        </View>
+        <View style={signUpStyle.formView}>
+          <View>
+            <PasswordIcon name='user-lock' size={60} color={"purple"} />
+          </View>
 
-        <View style={signUpStyle.formTextInputView}>
-          <View>
-            <TextInput
-              autoFocus={true}
-              style={signUpStyle.formTextInput}
-              keyboardType={"number-pad"}
-              maxLength={1}
-              selectTextOnFocus={false}
-              secureTextEntry={true}
-              returnKeyType={"next"}
-              onSubmitEditing={() => ref_input2.current?.focus()}
-              blurOnSubmit={false}
-              onChangeText={(pin1) => {
-                setPin({ ...pin, input1: pin1 });
-                if (!pin1.trim()) {
-                  //Nothing happens
-                } else {
-                  ref_input2.current?.focus();
-                }
-              }}
-              value={pin.input1}
-              ref={ref_input1}
-            />
+          <View style={signUpStyle.formTextInputView}>
+            <View>
+              <TextInput
+                autoFocus={true}
+                style={signUpStyle.formTextInput}
+                keyboardType={"number-pad"}
+                maxLength={1}
+                selectTextOnFocus={false}
+                secureTextEntry={true}
+                returnKeyType={"next"}
+                onSubmitEditing={() => ref_input2.current?.focus()}
+                blurOnSubmit={false}
+                onChangeText={(pin1) => {
+                  setPin({ ...pin, input1: pin1 });
+                  if (!pin1.trim()) {
+                    //Nothing happens
+                  } else {
+                    ref_input2.current?.focus();
+                  }
+                }}
+                value={pin.input1}
+                ref={ref_input1}
+              />
+            </View>
+            <View>
+              <TextInput
+                style={signUpStyle.formTextInput}
+                keyboardType={"number-pad"}
+                maxLength={1}
+                selectTextOnFocus={false}
+                secureTextEntry={true}
+                returnKeyType={"next"}
+                onSubmitEditing={() => ref_input3.current?.focus()}
+                ref={ref_input2}
+                blurOnSubmit={false}
+                onChangeText={(pin2) => {
+                  setPin({ ...pin, input2: pin2 });
+                  if (!pin2.trim()) {
+                    ref_input1.current?.focus();
+                  } else {
+                    ref_input3.current?.focus();
+                  }
+                }}
+                value={pin.input2}
+              />
+            </View>
+            <View>
+              <TextInput
+                style={signUpStyle.formTextInput}
+                keyboardType={"number-pad"}
+                maxLength={1}
+                selectTextOnFocus={false}
+                secureTextEntry={true}
+                returnKeyType={"next"}
+                onSubmitEditing={() => ref_input4.current?.focus()}
+                ref={ref_input3}
+                blurOnSubmit={false}
+                onChangeText={(pin3) => {
+                  setPin({ ...pin, input3: pin3 });
+                  if (!pin3.trim()) {
+                    ref_input2.current?.focus();
+                  } else {
+                    ref_input4.current?.focus();
+                  }
+                }}
+                value={pin.input3}
+              />
+            </View>
+            <View>
+              <TextInput
+                style={signUpStyle.formTextInput}
+                keyboardType={"number-pad"}
+                maxLength={1}
+                selectTextOnFocus={false}
+                secureTextEntry={true}
+                returnKeyType={"done"}
+                onSubmitEditing={() => {
+                  //do some actions here
+                }}
+                ref={ref_input4}
+                onChangeText={(pin4) => {
+                  setPin({ ...pin, input4: pin4 });
+                  if (!pin4.trim()) {
+                    ref_input3.current?.focus();
+                  } else {
+                    //Nothing happens
+                  }
+                }}
+                value={pin.input4}
+              />
+            </View>
           </View>
-          <View>
-            <TextInput
-              style={signUpStyle.formTextInput}
-              keyboardType={"number-pad"}
-              maxLength={1}
-              selectTextOnFocus={false}
-              secureTextEntry={true}
-              returnKeyType={"next"}
-              onSubmitEditing={() => ref_input3.current?.focus()}
-              ref={ref_input2}
-              blurOnSubmit={false}
-              onChangeText={(pin2) => {
-                setPin({ ...pin, input2: pin2 });
-                if (!pin2.trim()) {
-                  ref_input1.current?.focus();
-                } else {
-                  ref_input3.current?.focus();
-                }
-              }}
-              value={pin.input2}
-            />
-          </View>
-          <View>
-            <TextInput
-              style={signUpStyle.formTextInput}
-              keyboardType={"number-pad"}
-              maxLength={1}
-              selectTextOnFocus={false}
-              secureTextEntry={true}
-              returnKeyType={"next"}
-              onSubmitEditing={() => ref_input4.current?.focus()}
-              ref={ref_input3}
-              blurOnSubmit={false}
-              onChangeText={(pin3) => {
-                setPin({ ...pin, input3: pin3 });
-                if (!pin3.trim()) {
-                  ref_input2.current?.focus();
-                } else {
-                  ref_input4.current?.focus();
-                }
-              }}
-              value={pin.input3}
-            />
-          </View>
-          <View>
-            <TextInput
-              style={signUpStyle.formTextInput}
-              keyboardType={"number-pad"}
-              maxLength={1}
-              selectTextOnFocus={false}
-              secureTextEntry={true}
-              returnKeyType={"done"}
-              onSubmitEditing={() => {
-                //do some actions here
-              }}
-              ref={ref_input4}
-              onChangeText={(pin4) => {
-                setPin({ ...pin, input4: pin4 });
-                if (!pin4.trim()) {
-                  ref_input3.current?.focus();
-                } else {
-                  //Nothing happens
-                }
-              }}
-              value={pin.input4}
-            />
-          </View>
-        </View>
 
-        <View style={signUpStyle.registerBtnView}>
-          <TouchableOpacity
-            style={signUpStyle.registerBtn}
-            onPress={() => {
-              signUp();
-            }}>
-            <Text style={signUpStyle.registerBtnText}>
-              Create pin <PinIcon name={"key"} size={18} color={"white"} />
-            </Text>
-          </TouchableOpacity>
+          <View style={signUpStyle.registerBtnView}>
+            <TouchableOpacity
+              style={signUpStyle.registerBtn}
+              onPress={() => {
+                signUp();
+              }}>
+              <Text style={signUpStyle.registerBtnText}>
+                Create pin <PinIcon name={"key"} size={18} color={"white"} />
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </>
   );
 };
 

@@ -16,6 +16,7 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NoteContext } from "../../context/NoteContext";
 import { themeSettings } from "../tabViews/Settings/Theme";
+import { StatusBar } from "expo-status-bar";
 
 const Login = () => {
   const [isBiometricSupported, setIsBiometricSupported] = useState(false);
@@ -116,37 +117,42 @@ const Login = () => {
   };
 
   return (
-    <SafeAreaView
-      style={[
-        loginStyle.container,
-        {
-          backgroundColor:
-            isDarkTheme === true
-              ? themeSettings.darkTheme.backgroundColor
-              : themeSettings.lightTheme.backgroundColor,
-        },
-      ]}>
-      <View style={loginStyle.loginButtonView}>
-        <TouchableOpacity
-          style={loginStyle.loginButton}
-          onPress={loginOrSignUp}>
-          <Text style={loginStyle.buttonText}>
-            Login / Sign up <Icon name='login' size={15} />
-          </Text>
-        </TouchableOpacity>
-      </View>
+    <>
+      <StatusBar
+        backgroundColor={isDarkTheme === true ? "#1a1b1dfc" : "purple"}
+      />
+      <SafeAreaView
+        style={[
+          loginStyle.container,
+          {
+            backgroundColor:
+              isDarkTheme === true
+                ? themeSettings.darkTheme.backgroundColor
+                : themeSettings.lightTheme.backgroundColor,
+          },
+        ]}>
+        <View style={loginStyle.loginButtonView}>
+          <TouchableOpacity
+            style={loginStyle.loginButton}
+            onPress={loginOrSignUp}>
+            <Text style={loginStyle.buttonText}>
+              Login / Sign up <Icon name='login' size={15} />
+            </Text>
+          </TouchableOpacity>
+        </View>
 
-      <View style={loginStyle.biometricsButtonView}>
-        <TouchableOpacity
-          style={loginStyle.biometricsButton}
-          onPress={handleBiometricAuth}>
-          <Text style={loginStyle.buttonText}>
-            Continue with biometrics{" "}
-            <Icon2 name='finger-print-sharp' size={18} />
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+        <View style={loginStyle.biometricsButtonView}>
+          <TouchableOpacity
+            style={loginStyle.biometricsButton}
+            onPress={handleBiometricAuth}>
+            <Text style={loginStyle.buttonText}>
+              Continue with biometrics{" "}
+              <Icon2 name='finger-print-sharp' size={18} />
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    </>
   );
 };
 

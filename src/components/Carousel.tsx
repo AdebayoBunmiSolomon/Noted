@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
-  SafeAreaView,
   TouchableOpacity,
   FlatList,
   ImageBackground,
@@ -14,6 +13,7 @@ import { StackActions } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { NoteContext } from "../context/NoteContext";
 import { themeSettings } from "../screens/tabViews/Settings/Theme";
+import { StatusBar } from "expo-status-bar";
 
 const Carousel = ({ navigation }: any) => {
   const screenWidth = Dimensions.get("window").width;
@@ -22,12 +22,7 @@ const Carousel = ({ navigation }: any) => {
   const flatListRef = useRef<FlatList>(null);
   const { isDarkTheme } = useContext(NoteContext);
 
-  // const removeAllAsyncStorageItem = async () => {
-  //   await AsyncStorage.clear();
-  // };
-
   useEffect(() => {
-    // removeAllAsyncStorageItem();
     let interval = setInterval(() => {
       if (activeIndex === carouselData.length - 1) {
         flatListRef.current?.scrollToIndex({
@@ -147,40 +142,45 @@ const Carousel = ({ navigation }: any) => {
   };
 
   return (
-    <View
-      style={[
-        carouselStyle.container,
-        {
-          backgroundColor:
-            isDarkTheme === true
-              ? themeSettings.darkTheme.backgroundColor
-              : themeSettings.lightTheme.backgroundColor,
-        },
-      ]}>
-      <View style={carouselStyle.imageFlatListView}>
-        <FlatList
-          data={carouselData}
-          ref={flatListRef}
-          // getItemLayout={getItemLayout}
-          keyExtractor={(item) => item.id}
-          renderItem={renderItem}
-          horizontal={true}
-          pagingEnabled={true}
-          onScroll={handleScroll}
-          showsHorizontalScrollIndicator={false}
-        />
-      </View>
+    <>
+      <StatusBar
+        backgroundColor={isDarkTheme === true ? "#1a1b1dfc" : "purple"}
+      />
+      <View
+        style={[
+          carouselStyle.container,
+          {
+            backgroundColor:
+              isDarkTheme === true
+                ? themeSettings.darkTheme.backgroundColor
+                : themeSettings.lightTheme.backgroundColor,
+          },
+        ]}>
+        <View style={carouselStyle.imageFlatListView}>
+          <FlatList
+            data={carouselData}
+            ref={flatListRef}
+            // getItemLayout={getItemLayout}
+            keyExtractor={(item) => item.id}
+            renderItem={renderItem}
+            horizontal={true}
+            pagingEnabled={true}
+            onScroll={handleScroll}
+            showsHorizontalScrollIndicator={false}
+          />
+        </View>
 
-      <View style={carouselStyle.carouselDotIndicators}>
-        {renderDotIndicators()}
-      </View>
+        <View style={carouselStyle.carouselDotIndicators}>
+          {renderDotIndicators()}
+        </View>
 
-      <View style={carouselStyle.buttonView}>
-        <TouchableOpacity onPress={clickMe} style={carouselStyle.button}>
-          <Text style={[carouselStyle.buttonText, {}]}>Continue</Text>
-        </TouchableOpacity>
+        <View style={carouselStyle.buttonView}>
+          <TouchableOpacity onPress={clickMe} style={carouselStyle.button}>
+            <Text style={[carouselStyle.buttonText, {}]}>Continue</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </>
   );
 };
 
