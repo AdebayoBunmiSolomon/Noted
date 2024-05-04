@@ -1,6 +1,14 @@
 {
   "expo": {
     "name": "Notee",
+    "plugins": [
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Allow Notee to use Face ID."
+        }
+      ]
+    ],
     "slug": "Notee",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -11,9 +19,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "infoPlist": {

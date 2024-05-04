@@ -16,9 +16,22 @@
     "preview": {
       "distribution": "internal"
     },
-    "production": {
+    "production": {},
+    "androidApk": {
+      "distribution": "internal",
       "android": {
-        "buildType": "apk"
+        "gradleCommand": ":app:assembleRelease"
+      }
+    },
+    "androidBundle": {
+      "distribution": "internal",
+      "android": {
+        "gradleCommand": ":app:bundleRelease"
+      }
+    },
+    "simulator": {
+      "ios": {
+        "simulator": true
       }
     }
   },
